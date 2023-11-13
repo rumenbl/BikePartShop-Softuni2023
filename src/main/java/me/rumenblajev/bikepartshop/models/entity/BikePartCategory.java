@@ -27,4 +27,9 @@ public class BikePartCategory extends BaseEntity {
         BikePartCategory category = (BikePartCategory) o;
         return Objects.equals(part, category.part);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(part);
+    }
 }

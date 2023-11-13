@@ -2,6 +2,7 @@ package me.rumenblajev.bikepartshop.models.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "deliveries")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Delivery extends BaseEntity {
     @Column(nullable = false)
     private String person;
@@ -42,7 +44,4 @@ public class Delivery extends BaseEntity {
 
     @OneToMany
     private List<Order> orders;
-
-    public Delivery() {
-    }
 }

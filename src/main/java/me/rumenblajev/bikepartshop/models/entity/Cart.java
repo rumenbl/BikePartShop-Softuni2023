@@ -16,5 +16,5 @@ public class Cart extends BaseEntity {
 
     private String status = "open";
     @OneToMany(mappedBy = "cart",cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
-    private Set<CartItems> cart;
+    private Set<CartItems> cartItems;
 }
