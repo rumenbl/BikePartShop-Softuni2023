@@ -1,9 +1,6 @@
 package me.rumenblajev.bikepartshop.models.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +13,13 @@ import java.util.Set;
 public class BikePart extends BaseEntity {
     private String title;
     private String description;
+    @ManyToOne
     private BikePartCategory category;
     private String pictureUrl;
     private Double price;
+    @ManyToOne
     private Brand brand;
     private Integer stock;
-    @OneToMany(mappedBy = "bike_part",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
     private Set<CartItems> parts;
 }
