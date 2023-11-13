@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <th:block th:include="~{fragments/header}"/>
     <title>Title</title>
 </head>
 <body>
+<div>
+    <nav th:replace="~{fragments/navigation}">Navigation</nav>
+</div>
 
 </body>
+<th:block th:include="~{fragments/footer}"/>
 </html>
