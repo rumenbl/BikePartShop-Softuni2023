@@ -2,7 +2,6 @@ package me.rumenblajev.bikepartshop.services;
 
 import lombok.RequiredArgsConstructor;
 import me.rumenblajev.bikepartshop.models.entity.BikePart;
-import me.rumenblajev.bikepartshop.models.entity.BikePartCategory;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
 import me.rumenblajev.bikepartshop.repositories.BikePartRepository;
 import org.modelmapper.ModelMapper;
@@ -25,6 +24,10 @@ public class BikePartService {
         return bikePartRepository.findAll().stream().filter(part -> part.getCategory().getName().toString().toLowerCase().contains(query.toLowerCase()))
                 .map(part -> modelMapper.map(part, PartViewModel.class))
                 .toList();
+    }
+
+    public BikePart findById(Long id) {
+        return bikePartRepository.findById(id).orElse(null);
     }
 
 }
