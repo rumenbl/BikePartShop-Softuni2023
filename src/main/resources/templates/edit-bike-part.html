@@ -9,6 +9,84 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<section class="row alignment" th:object="${partViewModel}">
+    <form th:action="@{/administration/part/edit/{id}(id = *{id})}" th:method="post">
+        <div class="card mb-4 box-shadow">
+            <img th:src="*{pictureUrl}" class="card-img-top" alt="Item Picture"
+                 data-holder-rendered="true">
+            <div class="card-body body-style">
+                <div class="align-text-bottom">
+                    <label class="card-text border-bottom" for="title">Name: </label>
+                    <input
+                            disabled type="text"
+                            class="form-control"
+                            id="title"
+                            th:value="*{title}">
+                    <label class="card-text border-bottom ">Description:
+                        <input
+                                disabled type="text"
+                                class="form-control"
+                                id="description"
+                                th:value="*{description}"
+                        >
+                    </label>
+                    <label class="card-text border-bottom ">Brand:
+                        <input disabled type="text"
+                               class="form-control"
+                               id="brand"
+                               th:value="*{brand}">
+                    </label>
+                    <label class="card-text border-bottom ">Category:
+                        <input disabled type="text"
+                               class="form-control"
+                               id="category"
+                               th:value="*{category.name.name()}">
+                    </label>
+                    <label class="card-text border-bottom ">Price:
+                        <input
+                                id="price"
+                                th:field="*{price}"
+                                th:value="*{price}"
+                                th:errorclass="is-invalid"
+                                type="number"
+                                min="1"
+                                step="any"
+                                class="form-control"
+                                placeholder="Suggested price">
+                        <p th:if="${#fields.hasErrors('price')}" th:error="*{price}"
+                           class="invalid-feedback errors alert alert-danger">
+                        </p>
+                    </label>
+                    <label class="card-text border-bottom ">Stock:
+                        <input
+                                id="stock"
+                                th:field="*{stock}"
+                                th:errorclass="is-invalid"
+                                th:value="*{stock}"
+                                type="number"
+                                min="1"
+                                class="form-control"
+                                placeholder="Stock">
+                        <p th:if="${#fields.hasErrors('stock')}" th:error="*{stock}"
+                           class="invalid-feedback errors alert alert-danger">
+                        </p>
+                    </label>
+                    <div class="center">
+                        <button type="submit" class="btn btn-red btn-header-red btn-further save-button">SAVE
+                        </button>
+                    </div>
+                    <div>
+                        <a th:href="@{/administration/part/delete/{id}(id = *{id})}" class="btn btn-red btn-header-red btn-further save-button">
+                            DELETE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>

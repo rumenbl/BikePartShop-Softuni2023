@@ -10,6 +10,130 @@
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
 
+<div>
+    <h2 class="text-center text-white">Add Bike Part</h2>
+    <form th:action="@{/administration/part/create}"
+          th:method="post"
+          th:object="${partCreateDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center" style="align-items: center;">
+        <div class="row" style="display: contents;">
+            <small style="font-size: 20px;" th:if="${partAlreadyExists == true}" class="bg-danger text-light">Part already exists by title.</small>
+            <div class="form-group col-md-6 mb-3">
+                <label for="title" class="text-white font-weight-bold">Title</label>
+                <input
+                        th:field="*{title}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        id="title"
+                        name="title"
+                        type="text"
+                        class="form-control"
+                        placeholder="Part name"/>
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="errors alert alert-danger">
+                    A custom Error Message.
+                </p>
+            </div>
+        </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="description" class="text-white font-weight-bold">Description</label>
+                <input
+                        th:field="*{description}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        id="description"
+                        name="description"
+                        type="text"
+                        class="form-control"
+                        placeholder="Description"/>
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="errors alert alert-danger">
+                    A custom Error Message.
+                </p>
+            </div>
+        <div class="form-group col-md-6 mb-3">
+            <label class="text-white font-weight-bold" for="pictureUrl">Image URL</label>
+            <input
+                    th:field="*{pictureUrl}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="pictureUrl"
+                    name="pictureUrl"
+                    type="url"
+                    class="form-control"
+                    placeholder="Picture Url"/>
+            <p th:if="${#fields.hasErrors('pictureUrl')}" th:errors="*{pictureUrl}" class="errors alert alert-danger">
+                A custom Error Message.
+            </p>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+            <label class="text-center text-white font-weight-bold" for="category">Category</label>
+            <select
+                    th:field="*{category}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="category"
+                    name="category"
+                    class="form-control"
+                    placeholder="Category">
+                <option value="" selected>Category</option>
+                <option th:each="cat :${T(me.rumenblajev.bikepartshop.enums.BikePartCategoryEnum).values()}"
+                        th:text="${cat}" th:value="${cat}"></option>
+            </select>
+
+            <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors alert alert-danger">
+                A custom Error Message.
+            </p>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+            <label class="text-center text-white font-weight-bold" for="brand">Brand</label>
+            <input
+                    th:field="*{brand}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="brand"
+                    name="brand"
+                    type="text"
+                    step="any"
+                    class="form-control"
+                    placeholder="Brand"/>
+
+            <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="errors alert alert-danger">
+                A custom Error Message.
+            </p>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+            <label for="price" class="text-white font-weight-bold">Price</label>
+            <input
+                    th:field="*{price}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="price"
+                    name="price"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    placeholder="Price"/>
+            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="errors alert alert-danger">
+                A custom Error Message.
+            </p>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+            <label for="stock" class="text-white font-weight-bold">Stock</label>
+            <input
+                    th:field="*{stock}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="stock"
+                    name="title"
+                    type="number"
+                    class="form-control"
+                    placeholder="Stock"/>
+            <p th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="errors alert alert-danger">
+                A custom Error Message.
+            </p>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Add"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>

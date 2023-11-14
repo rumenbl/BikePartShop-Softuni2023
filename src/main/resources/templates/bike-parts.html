@@ -20,7 +20,7 @@
                 <h3 class="accordion">Details: </h3>
                 <div class="panel">
                     <p class="card-text border-bottom sb">Description: <span th:text="*{description}"></span></p>
-                    <p class="card-text border-bottom sb">Category: <span th:text="*{category.getName().toString()}"></span></p>
+                    <p class="card-text border-bottom sb">Category: <span th:text="*{category.name.name()}"></span></p>
                     <p class="card-text border-bottom sb">Brand: <span th:text="*{brand}"></span></p>
                     <p class="card-text border-bottom sb">Price: <span th:text="*{price}"></span></p>
                     <p class="card-text border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="btn-group customized-button" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/administration/part-edit/{id}(id = *{id})}" th:method="post" type="submit"
+                    <a th:href="@{/administration/part/edit/{id}(id = *{id})}" th:method="post" type="submit"
                        class="btn btn-sm btn-outline-secondary button-customized" data-bs-toggle="modal"
                        data-bs-target="#addModel">Edit Part</a>
                 </div>
