@@ -48,7 +48,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/login")
-    public String getLogin() {
+    public String getLogin(final Principal principal) {
         return "login";
     }
 
@@ -83,7 +83,7 @@ public class AuthenticationController {
             redirectAttributes.addFlashAttribute("passwordMustMatch", false);
             return "redirect:/users/register";
         }
-        if (!userService.userAlreadyExists(userRegisterDTO)) {
+        if (userService.userAlreadyExists(userRegisterDTO)) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
             redirectAttributes.addFlashAttribute("userAlreadyExists", true);
             return "redirect:/users/register";
@@ -101,8 +101,6 @@ public class AuthenticationController {
         redirectAttributes.addFlashAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, username);
         redirectAttributes.addFlashAttribute("checkCredentials", true);
         return "redirect:/users/login";
-
-
     }
 
     @ModelAttribute("userRegisterDTO")

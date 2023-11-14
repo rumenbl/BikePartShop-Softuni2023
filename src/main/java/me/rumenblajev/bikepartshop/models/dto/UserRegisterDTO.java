@@ -23,7 +23,7 @@ public class UserRegisterDTO {
     @Size(min = 4,max = 20,message = "Last name must be between 4 and 20 characters!")
     private String lastName;
 
-    @NotBlank(message = "Age cannot be empty")
+    @NotNull(message = "Age cannot be empty")
     @Min(value = 0, message = "Age must be over 0")
     @Max(value = 99, message = "Age must be under 100")
     private Integer age;

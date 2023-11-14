@@ -29,8 +29,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/users/about").anonymous()
-                .requestMatchers("/users/login", "/users/register").anonymous()
+                .requestMatchers("/").anonymous()
+                .requestMatchers("/users/login", "/users/register", "/users/about").anonymous()
                 .requestMatchers("/administration/**").hasRole(RolesEnum.ADMIN.name())
                 .requestMatchers("/users/profile").authenticated()
                 .anyRequest()

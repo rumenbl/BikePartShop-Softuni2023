@@ -9,6 +9,84 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<div>
+    <h2>Register</h2>
+    <form
+        th:action="@{/users/register}"
+        th:method="post"
+        th:object="${userRegisterDTO}"
+    >
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" th:field="*{firstName}"/>
+            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" th:field="*{lastName}"/>
+            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" th:field="*{age}"/>
+            <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}"/>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}"/>
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}"/>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}"/>
+            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" th:field="*{phoneNumber}"/>
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <label for="gender">Gender</label>
+            <select
+                th:field="*{gender}"
+                id="gender"
+                name="gender"
+                placeholder="Gender"
+            >
+                <option value="" selected>Gender</option>
+                <option th:each="gr :${T(me.rumenblajev.bikepartshop.enums.GenderEnum).values()}"
+                        th:text="${gr}" th:value="${gr}"></option>
+            </select>
+
+            <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="errors alert alert-danger">
+                customError
+            </p>
+
+            <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+        </div>
+    </form>
+</div>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
