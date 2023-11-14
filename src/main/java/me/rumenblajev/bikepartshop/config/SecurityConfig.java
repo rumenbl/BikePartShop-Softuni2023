@@ -29,10 +29,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/").anonymous()
+                .requestMatchers("/").permitAll()
                 .requestMatchers("/users/login", "/users/register", "/users/about").anonymous()
                 .requestMatchers("/administration/**").hasRole(RolesEnum.ADMIN.name())
-                .requestMatchers("/users/profile").authenticated()
+                .requestMatchers("/home","/users/profile").authenticated()
                 .anyRequest()
                 .authenticated())
             .formLogin(formLogin -> formLogin.loginPage("/users/login")
