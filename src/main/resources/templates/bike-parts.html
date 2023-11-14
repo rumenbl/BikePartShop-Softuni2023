@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <th:block th:include="~{fragments/header}"/>
@@ -9,6 +9,39 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<div class="row">
+    <div th:each="part : ${parts}" th:object="${part}" class="book-container">
+        <div class="card mb-4 box-shadow" style="top:20px">
+            <div class="card-body customized">
+                <span th:text="*{title}"></span>
+                <img th:src="*{pictureUrl}" class="card-img-top" style="max-width: 10vw; max-height: 10vw" alt="Part Picture"
+                     data-holder-rendered="true">
+                <h3 class="accordion">Details: </h3>
+                <div class="panel">
+                    <p class="card-text border-bottom sb">Description: <span th:text="*{description}"></span></p>
+                    <p class="card-text border-bottom sb">Category: <span th:text="*{category.getName().toString()}"></span></p>
+                    <p class="card-text border-bottom sb">Brand: <span th:text="*{brand}"></span></p>
+                    <p class="card-text border-bottom sb">Price: <span th:text="*{price}"></span></p>
+                    <p class="card-text border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group customized-button">
+                        <a th:href="@{/parts/cart/{id}(id = *{id})}" th:method="post" type="submit"
+                           class="btn btn-sm btn-outline-secondary button-customized" data-bs-toggle="modal"
+                           data-bs-target="#addModel">Add To Cart</a>
+                    </div>
+                </div>
+                <div class="btn-group customized-button" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/administration/part-edit/{id}(id = *{id})}" th:method="post" type="submit"
+                       class="btn btn-sm btn-outline-secondary button-customized" data-bs-toggle="modal"
+                       data-bs-target="#addModel">Edit Part</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
