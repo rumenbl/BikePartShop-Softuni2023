@@ -9,6 +9,121 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<form
+        th:action="@{/orders/create}"
+        th:method="POST"
+        th:object="${orderCreateDTO}">
+    <div class="row">
+        <div class="col-50">
+            <h3>Delivery Information</h3>
+            <div>
+                <label for="clientName"><i class="fa fa-user"></i> Name </label>
+                <input
+                        th:field="*{clientName}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        type="text"
+                        id="clientName"
+                        name="clientName"
+                        placeholder="Your Name">
+                <small th:if="${#fields.hasErrors('clientName')}"
+                       th:errors="*{clientName}" class="bg-danger text-light rounded">
+                    Field must be at least 4 characters.
+                </small>
+            </div>
+            <div>
+                <label for="deliveryCountry"><i class="fa fa-flag"></i> Country</label>
+                <input th:field="*{deliveryCountry}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="text"
+                       id="deliveryCountry"
+                       name="deliveryCountry"
+                       placeholder="Country">
+                <small th:if="${#fields.hasErrors('deliveryCountry')}"
+                       th:errors="*{deliveryCountry}" class="bg-danger text-light rounded">
+                    Field must be at least 3 characters.
+                </small>
+            </div>
+            <div>
+                <label for="clientPhoneNumber"><i class="fa fa-phone"></i> Phone Number</label>
+                <input th:field="*{clientPhoneNumber}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="text"
+                       id="clientPhoneNumber"
+                       name="clientPhoneNumber"
+                       placeholder="Phone Number">
+                <small th:if="${#fields.hasErrors('clientPhoneNumber')}"
+                       th:errors="*{clientPhoneNumber}" class="bg-danger text-light rounded">
+                    Phone number is invalid.
+                </small>
+            </div>
+
+            <div>
+                <label for="clientEmail"><i class="fa fa-envelope"></i> Email</label>
+                <input th:field="*{clientEmail}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="text" id="clientEmail"
+                       name="clientEmail"
+                       placeholder="yourname@example.com">
+                <small th:if="${#fields.hasErrors('clientEmail')}"
+                       th:errors="*{clientEmail}" class="bg-danger text-light rounded">
+                    Invalid email.
+                </small>
+            </div>
+            <div>
+                <label for="deliveryCity"><i class="fa fa-institution"></i> City</label>
+                <input th:field="*{deliveryCity}"
+                       th:erroclass="'is-invalid bg-danger'"
+                       type="text"
+                       id="deliveryCity"
+                       name="deliveryCity"
+                       placeholder="New York">
+                <small th:if="${#fields.hasErrors('deliveryCity')}"
+                       th:errors="*{deliveryCity}" class="bg-danger text-light rounded">
+                    Field must be at least 3 characters.
+                </small>
+            </div>
+            <div>
+                <label for="deliveryAddress"><i class="fa fa-address-card-o"></i> Address</label>
+                <input th:field="*{deliveryAddress}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="text" id="deliveryAddress"
+                       name="deliveryAddress"
+                       placeholder="New York Avenue 1912">
+                <small th:if="${#fields.hasErrors('deliveryAddress')}"
+                       th:errors="*{deliveryAddress}" class="bg-danger text-light rounded">
+                    Field must be at least 5 characters.
+                </small>
+            </div>
+            <div>
+                <label for="deliveryZipCode"><i class="fa fa-map-pin"></i>Zip Code</label>
+                <input th:field="*{deliveryZipCode}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="text" id="deliveryZipCode"
+                       name="deliveryZipCode"
+                       placeholder="66666">
+                <small th:if="${#fields.hasErrors('deliveryZipCode')}"
+                       th:errors="*{deliveryZipCode}" class="bg-danger text-light rounded">
+                    Field must be at least 3 characters.
+                </small>
+            </div>
+            <selection>
+                <label for="courier"><i class="fa fa-shipping-fast"></i>Courier (Payment on delivery)</label>
+                <div>
+                    <select th:field="*{deliveryCourier}"
+                            th:errorclass="'is-invalid bg-danger'"
+                            id="courier"
+                            name="courier" class="custom-btn-style">
+                        <option selected value="Econt">Econt</option>
+                        <option value="Speedy">Speedy</option>
+                    </select>
+                </div>
+            </selection>
+        </div>
+    </div>
+    <input type="submit" value="Create Order" class="btn btn-primary">
+</form>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>

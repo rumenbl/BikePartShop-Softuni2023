@@ -4,6 +4,7 @@ import jakarta.servlet.http.Part;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
+import me.rumenblajev.bikepartshop.models.view.OrderViewModel;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
 import me.rumenblajev.bikepartshop.services.BikePartService;
 import me.rumenblajev.bikepartshop.services.OrderService;
@@ -75,6 +76,17 @@ public class AdministrationController {
         }
         bikePartService.savePart(partCreateDTO);
         return "redirect:/parts/all";
+    }
+
+    @GetMapping("/orders/all")
+    public String allOrders(Model model) {
+        model.addAttribute("allOrders", orderService.findAllOrders());
+        return "orders";
+    }
+
+    @ModelAttribute("allOrders")
+    public OrderViewModel allOrders() {
+        return new OrderViewModel();
     }
 
     @ModelAttribute("partViewModel")

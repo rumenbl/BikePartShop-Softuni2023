@@ -9,11 +9,10 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
-<a href="/parts/all" class="make-order-button with-color"> Continue Shopping</a>
 <div class="row">
     <div th:each="content : ${cartContent}" th:object="${content}">
         <div class="card mb-4 box-shadow" style="top:20px">
-            <img th:src="*{part.pictureUrl}" th:id="*{part.id}" class="card-img-top" alt="Item Picture"
+            <img th:src="*{part.pictureUrl}" class="card-img-top" style="max-width: 10vw;max-height: 10vw" alt="Part Picture"
                  data-holder-rendered="true">
             <div class="card-body custom-style">
                 <div class="align-text-bottom">
@@ -30,15 +29,20 @@
                         <input disabled type="number" class="form-control" min="1" id="amount" th:value="*{amount}"
                                th:placeholder="*{amount}" autocomplete="off">
                     </div>
+                    <div class="btn-group">
+                        <a th:href="@{/parts/cart/remove/{id}(id = *{id})}" class="btn btn-primary" style="top:15px" data-bs-toggle="modal"
+                           data-bs-target="#addModel">Remove From Cart</a>
+                    </div>
+                </div>
 
-                </div>
-                <div class="btn-group">
-                    <a th:href="@{/parts/cart/remove/{id}(id = *{id})}" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                       data-bs-target="#addModel">Remove From Cart</a>
-                </div>
             </div>
         </div>
     </div>
+    <div class="btn-group" role="group">
+        <a href="/parts/all" class="btn btn-primary btn-outline-dark"> Continue Shopping</a>
+        <a href="/orders/create" class="btn btn-primary btn-outline-dark"> Create Order</a>
+    </div>
+
 </div>
 </body>
 <th:block th:include="~{fragments/footer}"/>

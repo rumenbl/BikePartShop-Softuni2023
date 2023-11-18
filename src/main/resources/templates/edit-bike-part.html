@@ -13,8 +13,8 @@
 <section class="row alignment" th:object="${partViewModel}">
     <form th:action="@{/administration/part/edit/{id}(id = *{id})}" th:method="post">
         <div class="card mb-4 box-shadow">
-            <img th:src="*{pictureUrl}" class="card-img-top" alt="Item Picture"
-                 data-holder-rendered="true">
+            <img th:src="*{pictureUrl}" class="card-img-top" style="max-width: 10vw;max-height: 10vw" alt="Item Picture"
+                 data-holder-rendered="true" >
             <div class="card-body body-style">
                 <div class="align-text-bottom">
                     <label class="card-text border-bottom" for="title">Name: </label>

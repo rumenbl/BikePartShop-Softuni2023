@@ -16,10 +16,8 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = {CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER)
     private List<CartItems> items;
-    @ManyToOne
-    private Delivery delivery;
 
     @Column(nullable = false)
     private LocalDate date;

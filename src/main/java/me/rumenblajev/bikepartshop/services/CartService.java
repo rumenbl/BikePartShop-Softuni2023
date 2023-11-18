@@ -27,6 +27,14 @@ public class CartService {
         cartRepository.save(cart);
         cartItemsRepository.save(items);
     }
+
+    public void closeUserCart(User user) {
+        Cart cart = cartRepository.findByUserAndStatus(user, "open").orElse(null);
+        if(cart != null) {
+            cart.setStatus("closed");
+            cartRepository.save(cart);
+        }
+    }
     public void saveCartItems(CartItems items) {
         cartItemsRepository.save(items);
     }

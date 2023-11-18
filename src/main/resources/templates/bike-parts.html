@@ -26,15 +26,15 @@
                     <p class="card-text border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group customized-button">
+                    <div class="btn btn-group customized-button">
                         <a th:href="@{/parts/cart/add/{id}(id = *{id})}" th:method="post" type="submit"
-                           class="btn btn-sm btn-outline-secondary button-customized" data-bs-toggle="modal"
+                           class="btn btn-sm btn-outline-secondary button-customized"
                            data-bs-target="#addModel">Add To Cart</a>
                     </div>
                 </div>
-                <div class="btn-group customized-button" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="btn btn-group customized-button" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/administration/part/edit/{id}(id = *{id})}" th:method="post" type="submit"
-                       class="btn btn-sm btn-outline-secondary button-customized" data-bs-toggle="modal"
+                       class="btn btn-sm btn-outline-secondary button-customized"
                        data-bs-target="#addModel">Edit Part</a>
                 </div>
             </div>

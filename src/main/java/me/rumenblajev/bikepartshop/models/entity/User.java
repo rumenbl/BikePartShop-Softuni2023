@@ -41,4 +41,10 @@ public class User extends BaseEntity {
 
     @OneToMany
     private Collection<Cart> cart;
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s %s | Username: %s | Phone: %s | Email: %s",
+                            firstName,lastName,username,phoneNumber,email);
+    }
 }
