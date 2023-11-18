@@ -1,9 +1,10 @@
 package me.rumenblajev.bikepartshop.web;
 
-import jakarta.servlet.http.Part;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import me.rumenblajev.bikepartshop.enums.RolesEnum;
 import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
+import me.rumenblajev.bikepartshop.models.dto.RoleChangeDTO;
 import me.rumenblajev.bikepartshop.models.view.OrderViewModel;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
 import me.rumenblajev.bikepartshop.models.view.UserViewModel;
@@ -36,10 +37,10 @@ public class AdministrationController {
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  @PathVariable Long id) {
-        if(bikePartService.findById(id) == null) {
+        if (bikePartService.findById(id) == null) {
             return "redirect:/parts/all";
         }
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partViewModel", partViewModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partViewModel", bindingResult);
             return "redirect:/administration/part/edit/" + id;
@@ -64,13 +65,13 @@ public class AdministrationController {
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partCreateDTO", partCreateDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partCreateDTO", bindingResult);
             return "redirect:/administration/part/create";
         }
 
-        if(bikePartService.checkIfPartTitleAlreadyExists(partCreateDTO.getTitle().trim())) {
+        if (bikePartService.checkIfPartTitleAlreadyExists(partCreateDTO.getTitle().trim())) {
             redirectAttributes.addFlashAttribute("partCreateDTO", partCreateDTO);
             redirectAttributes.addFlashAttribute("partAlreadyExists", true);
             return "redirect:/administration/part/create";
@@ -90,9 +91,29 @@ public class AdministrationController {
         model.addAttribute("allUsers", userService.findAllUsers());
         return "users";
     }
-    @ModelAttribute("allUsers")
-    public UserViewModel allUsers() { return new UserViewModel(); }
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return "redirect:/administration/users/all";
+    }
 
+    @GetMapping("/users/change-role/{id}")
+    public String changeUserRole(@PathVariable Long id) {
+        userService.changeUserRole(id);
+        return "redirect:/administration/users/all";
+    }
+    @ModelAttribute("allUsers")
+    public UserViewModel allUsers() {
+        return new UserViewModel();
+    }
+    @ModelAttribute("roleChangeDTO")
+    public RoleChangeDTO roleChangeDTO() {
+        return new RoleChangeDTO();
+    }
+    @ModelAttribute("allRoles")
+    public RolesEnum[] allRoles() {
+        return RolesEnum.values();
+    }
     @ModelAttribute("allOrders")
     public OrderViewModel allOrders() {
         return new OrderViewModel();

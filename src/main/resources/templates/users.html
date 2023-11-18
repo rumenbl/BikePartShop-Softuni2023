@@ -22,6 +22,9 @@
                 <p>Gender: <span th:text="*{gender}"></span> </p>
                 <p>Phone: <span th:text="*{phoneNumber}"></span> </p>
                 <p>Role: <span th:text="*{role.name}"></span> </p>
+
+                <a th:href="@{/administration/users/change-role/{id}(id = ${user.id})}">Change role</a>
+                <a th:href="@{/administration/users/delete/{id}(id= ${user.id})}" class="text-danger" data-toggle="tooltip">Delete user</a>
             </div>
         </div>
     </div>

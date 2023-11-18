@@ -49,7 +49,16 @@ public class UserService {
         registerUserServiceModel.setPassword(this.passwordEncoder.encode(userRegisterDTO.getPassword()));
         return registerUserServiceModel;
     }
-
+    public void changeUserRole(final Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user != null) {
+            switch (user.getRole().getName()) {
+                case USER -> user.setRole(roleService.findRoleByName(RolesEnum.ADMIN));
+                case ADMIN -> user.setRole(roleService.findRoleByName(RolesEnum.USER));
+            }
+            userRepository.save(user);
+        }
+    }
     public User register(RegisterUserServiceModel registerUserServiceModel) {
         User user = this.modelMapper.map(registerUserServiceModel, User.class);
         return this.userRepository.saveAndFlush(user);
@@ -68,5 +77,9 @@ public class UserService {
         return userRepository.findAll().stream().map(
                 user -> modelMapper.map(user, UserViewModel.class)
         ).toList();
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }
