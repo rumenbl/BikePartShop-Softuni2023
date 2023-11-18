@@ -26,10 +26,7 @@
                         <a class="nav-link b" style="width: 111%" th:href="@{/administration/part/create}">Add part to Database</a>
                     </li>
                     <li class="nav-item " sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link b" style="width: 120%" th:href="@{/administration/all-users}">All Users</a>
-                    </li>
-                    <li class="nav-item " sec:authorize="hasRole('NoRole')">
-                        <a class="nav-link b" style="width: 120%" th:href="@{/deliveries/info}">Deliveries</a>
+                        <a class="nav-link b" style="width: 120%" th:href="@{/administration/users/all}">All Users</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link b" style="width: 120%" th:href="@{/parts/all}">All parts</a>
