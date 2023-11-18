@@ -6,10 +6,13 @@ import me.rumenblajev.bikepartshop.enums.RolesEnum;
 import me.rumenblajev.bikepartshop.models.dto.UserRegisterDTO;
 import me.rumenblajev.bikepartshop.models.entity.User;
 import me.rumenblajev.bikepartshop.models.service.RegisterUserServiceModel;
+import me.rumenblajev.bikepartshop.models.view.UserViewModel;
 import me.rumenblajev.bikepartshop.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -60,4 +63,10 @@ public class UserService {
         return this.userRepository.findOneByUsername(dto.getUsername()).isPresent() ||
                 this.userRepository.findOneByEmail(dto.getEmail()).isPresent();
     }
- }
+
+    public List<UserViewModel> findAllUsers() {
+        return userRepository.findAll().stream().map(
+                user -> modelMapper.map(user, UserViewModel.class)
+        ).toList();
+    }
+}

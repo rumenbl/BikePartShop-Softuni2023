@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
 import me.rumenblajev.bikepartshop.models.view.OrderViewModel;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
+import me.rumenblajev.bikepartshop.models.view.UserViewModel;
 import me.rumenblajev.bikepartshop.services.BikePartService;
 import me.rumenblajev.bikepartshop.services.OrderService;
 import me.rumenblajev.bikepartshop.services.UserService;
@@ -83,6 +84,14 @@ public class AdministrationController {
         model.addAttribute("allOrders", orderService.findAllOrders());
         return "orders";
     }
+
+    @GetMapping("/users/all")
+    public String allUsers(Model model) {
+        model.addAttribute("allUsers", userService.findAllUsers());
+        return "users";
+    }
+    @ModelAttribute("allUsers")
+    public UserViewModel allUsers() { return new UserViewModel(); }
 
     @ModelAttribute("allOrders")
     public OrderViewModel allOrders() {

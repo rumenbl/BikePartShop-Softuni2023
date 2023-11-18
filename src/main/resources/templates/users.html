@@ -9,6 +9,24 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+<div class="container text-center row row-cols-auto">
+<div th:each="user: ${allUsers}" class="col">
+    <div th:object="${user}" class="card">
+        <div class="card-body">
+            <h5 class="card-title">Id: <span th:text="*{id}"></span></h5>
+            <div class="card-text">
+                <p>Username: <span th:text="*{username}"></span> </p>
+                <p>Name: <span th:text="*{firstName}"></span> <span th:text="*{lastName}"> </p>
+                <p><span th:text="*{age}"></span> years old </p>
+                <p>Email: <span th:text="*{email}"></span> </p>
+                <p>Gender: <span th:text="*{gender}"></span> </p>
+                <p>Phone: <span th:text="*{phoneNumber}"></span> </p>
+                <p>Role: <span th:text="*{role.name}"></span> </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
