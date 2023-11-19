@@ -28,7 +28,9 @@ jobs:
       # Then run your tests!
       - run:
           name: Test
-          command: mvn test
+          command: mvn -B test
+      - codecov/upload
+
 
 
 # Invoke jobs via workflows
@@ -38,7 +40,3 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-  upload-to-codecov:
-    jobs:
-      - checkout
-      - codecov/upload
