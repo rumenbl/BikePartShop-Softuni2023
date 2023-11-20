@@ -19,7 +19,7 @@ import java.util.Set;
 public class BikePartShopUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findOneByUsername(username);
         if(user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
@@ -35,7 +35,7 @@ public class BikePartShopUserDetailsService implements UserDetailsService {
         }
     }
 
-    public UserDetails regularUserRoleMap(User user) {
+    public UserDetails regularUserRoleMap(final User user) {
         Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
         grantedAuthoritySet.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new BikePartShopUserDetails(
@@ -48,7 +48,7 @@ public class BikePartShopUserDetailsService implements UserDetailsService {
         );
     }
 
-    public UserDetails adminUserRoleMap(User user) {
+    public UserDetails adminUserRoleMap(final User user) {
         Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
         grantedAuthoritySet.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return new BikePartShopUserDetails(

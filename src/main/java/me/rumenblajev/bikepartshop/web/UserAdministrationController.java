@@ -16,31 +16,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/administration/users")
 public class UserAdministrationController {
+
     private final UserService userService;
+
     @GetMapping("/all")
-    public String allUsers(Model model) {
+    public String allUsers(final Model model) {
         model.addAttribute("allUsers", userService.findAllUsers());
+
         return "users";
     }
+
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(final @PathVariable Long id) {
         userService.deleteUserById(id);
+
         return "redirect:/administration/users/all";
     }
 
     @GetMapping("/change-role/{id}")
-    public String changeUserRole(@PathVariable Long id) {
+    public String changeUserRole(final @PathVariable Long id) {
         userService.changeUserRole(id);
+
         return "redirect:/administration/users/all";
     }
+
     @ModelAttribute("allUsers")
     public UserViewModel allUsers() {
         return new UserViewModel();
     }
+
     @ModelAttribute("roleChangeDTO")
     public RoleChangeDTO roleChangeDTO() {
         return new RoleChangeDTO();
     }
+
     @ModelAttribute("allRoles")
     public RolesEnum[] allRoles() {
         return RolesEnum.values();

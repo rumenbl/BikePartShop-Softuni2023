@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,13 +39,17 @@ public class UserService {
         }
     }
     public RegisterUserServiceModel registerAdminUser(final UserRegisterDTO userRegisterDTO) {
-        RegisterUserServiceModel registerUserServiceModel = this.modelMapper.map(userRegisterDTO, RegisterUserServiceModel.class);
+        RegisterUserServiceModel registerUserServiceModel = this.modelMapper
+                .map(userRegisterDTO, RegisterUserServiceModel.class);
+
         registerUserServiceModel.setRole(this.roleService.findRoleByName(RolesEnum.ADMIN));
         registerUserServiceModel.setPassword(this.passwordEncoder.encode(userRegisterDTO.getPassword()));
         return registerUserServiceModel;
     }
     public RegisterUserServiceModel registerRegularUser(final UserRegisterDTO userRegisterDTO) {
-        RegisterUserServiceModel registerUserServiceModel = this.modelMapper.map(userRegisterDTO, RegisterUserServiceModel.class);
+        RegisterUserServiceModel registerUserServiceModel = this.modelMapper
+                .map(userRegisterDTO, RegisterUserServiceModel.class);
+
         registerUserServiceModel.setRole(this.roleService.findRoleByName(RolesEnum.USER));
         registerUserServiceModel.setPassword(this.passwordEncoder.encode(userRegisterDTO.getPassword()));
         return registerUserServiceModel;
@@ -59,13 +64,13 @@ public class UserService {
             userRepository.save(user);
         }
     }
-    public User register(RegisterUserServiceModel registerUserServiceModel) {
+    public void register(final RegisterUserServiceModel registerUserServiceModel) {
         User user = this.modelMapper.map(registerUserServiceModel, User.class);
-        return this.userRepository.saveAndFlush(user);
+        userRepository.saveAndFlush(user);
     }
 
-    public User findByUsername(String username) {
-        return this.userRepository.findOneByUsername(username).orElse(null);
+    public Optional<User> findByUsername(String username) {
+        return this.userRepository.findOneByUsername(username);
     }
 
     public boolean userAlreadyExists(final UserRegisterDTO dto){

@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.rumenblajev.bikepartshop.models.dto.UserRegisterDTO;
 import me.rumenblajev.bikepartshop.models.entity.User;
-import me.rumenblajev.bikepartshop.models.service.RegisterUserServiceModel;
 import me.rumenblajev.bikepartshop.models.view.UserViewModel;
 import me.rumenblajev.bikepartshop.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -26,6 +25,8 @@ import java.security.Principal;
 public class AuthenticationController {
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private static final String USER_REGISTER_REDIRECT_PATH = "redirect:/users/register";
+    private static final String USER_LOGIN_REDIRECT_PATH = "redirect:/users/login";
 
     @GetMapping("/register")
     public String registerGet() {
@@ -48,16 +49,20 @@ public class AuthenticationController {
     }
 
     @GetMapping("/login")
-    public String getLogin(final Principal principal) {
+    public String getLogin() {
         return "login";
     }
 
     @GetMapping("/profile")
-    public String userProfile(Principal principal, Model model) {
+    public String userProfile(final Principal principal,
+                              final Model model) {
+
         String username = principal.getName();
-        User user = this.userService.findByUsername(username);
+        User user = this.userService.findByUsername(username).get();
+
         UserViewModel userViewModel = this.modelMapper.map(user, UserViewModel.class);
         model.addAttribute("userProfile", userViewModel);
+
         return "user-profile";
     }
 
@@ -72,35 +77,45 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String registerPost(final @Valid UserRegisterDTO userRegisterDTO,
+                               final BindingResult bindingResult,
+                               final RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
-            return "redirect:/users/register";
+            return USER_REGISTER_REDIRECT_PATH;
         }
-        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
-            redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
-            redirectAttributes.addFlashAttribute("passwordMustMatch", false);
-            return "redirect:/users/register";
-        }
+
         if (userService.userAlreadyExists(userRegisterDTO)) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
             redirectAttributes.addFlashAttribute("userAlreadyExists", true);
-            return "redirect:/users/register";
+            return USER_REGISTER_REDIRECT_PATH;
         }
 
-        RegisterUserServiceModel model = this.userService.registerRegularUser(userRegisterDTO);
-        this.userService.register(model);
-        return "redirect:/users/login";
+        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
+            redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
+            redirectAttributes.addFlashAttribute("passwordMustMatch", false);
+            return USER_REGISTER_REDIRECT_PATH;
+        }
+
+        final var userRegisterModel = this.userService.registerRegularUser(userRegisterDTO);
+        this.userService.register(userRegisterModel);
+        return USER_LOGIN_REDIRECT_PATH;
     }
 
     @PostMapping("/login-failed")
     public String wrongCredentials(
-            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY) String username, RedirectAttributes redirectAttributes) {
+            final @ModelAttribute(
+                    UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY) String username,
+            final RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, username);
+        redirectAttributes.addFlashAttribute(
+                UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, username);
+
         redirectAttributes.addFlashAttribute("checkCredentials", true);
-        return "redirect:/users/login";
+
+        return USER_LOGIN_REDIRECT_PATH;
     }
 
     @ModelAttribute("userRegisterDTO")

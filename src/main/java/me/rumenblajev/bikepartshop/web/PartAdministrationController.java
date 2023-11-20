@@ -15,33 +15,42 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/administration/parts")
 public class PartAdministrationController {
+
     private final BikePartService bikePartService;
+
     @GetMapping("/part/edit/{id}")
-    public String editPart(@PathVariable Long id, Model model) {
+    public String editPart(final @PathVariable Long id,
+                           final Model model) {
+
         PartViewModel partViewModel = bikePartService.findPartViewModelById(id);
         model.addAttribute("partViewModel", partViewModel);
+
         return "edit-bike-part";
     }
 
     @PostMapping("/part/edit/{id}")
-    public String editPartSubmit(@Valid PartViewModel partViewModel,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes,
-                                 @PathVariable Long id) {
-        if (bikePartService.findById(id) == null) {
+    public String editPartSubmit(final @Valid PartViewModel partViewModel,
+                                 final BindingResult bindingResult,
+                                 final RedirectAttributes redirectAttributes,
+                                 final @PathVariable Long id) {
+
+        if (bikePartService.findById(id).isEmpty()) {
             return "redirect:/parts/all";
         }
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partViewModel", partViewModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partViewModel", bindingResult);
             return "redirect:/administration/part/edit/" + id;
         }
+
         bikePartService.saveEditedPart(partViewModel, id);
+
         return "redirect:/parts/all";
     }
 
     @GetMapping("/part/delete/{id}")
-    public String deletePart(@PathVariable Long id) {
+    public String deletePart(final @PathVariable Long id) {
         bikePartService.deletePart(id);
         return "redirect:/parts/all";
     }
@@ -52,9 +61,9 @@ public class PartAdministrationController {
     }
 
     @PostMapping("/part/create")
-    public String createPartSubmit(@Valid PartCreateDTO partCreateDTO,
-                                   BindingResult bindingResult,
-                                   RedirectAttributes redirectAttributes) {
+    public String createPartSubmit(final @Valid PartCreateDTO partCreateDTO,
+                                   final BindingResult bindingResult,
+                                   final RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partCreateDTO", partCreateDTO);
@@ -67,6 +76,7 @@ public class PartAdministrationController {
             redirectAttributes.addFlashAttribute("partAlreadyExists", true);
             return "redirect:/administration/part/create";
         }
+
         bikePartService.savePart(partCreateDTO);
         return "redirect:/parts/all";
     }

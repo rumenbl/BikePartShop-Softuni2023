@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderAdministrationController {
     private final OrderService orderService;
     @GetMapping("/all")
-    public String allOrders(Model model) {
+    public String allOrders(final Model model) {
         model.addAttribute("allOrders", orderService.findAllOrders());
         return "orders";
     }
