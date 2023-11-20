@@ -2,15 +2,9 @@ package me.rumenblajev.bikepartshop.web;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.rumenblajev.bikepartshop.enums.RolesEnum;
 import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
-import me.rumenblajev.bikepartshop.models.dto.RoleChangeDTO;
-import me.rumenblajev.bikepartshop.models.view.OrderViewModel;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
-import me.rumenblajev.bikepartshop.models.view.UserViewModel;
 import me.rumenblajev.bikepartshop.services.BikePartService;
-import me.rumenblajev.bikepartshop.services.OrderService;
-import me.rumenblajev.bikepartshop.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,12 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/administration")
-public class AdministrationController {
-    private final UserService userService;
+@RequestMapping("/administration/parts")
+public class PartAdministrationController {
     private final BikePartService bikePartService;
-    private final OrderService orderService;
-
     @GetMapping("/part/edit/{id}")
     public String editPart(@PathVariable Long id, Model model) {
         PartViewModel partViewModel = bikePartService.findPartViewModelById(id);
@@ -80,44 +71,7 @@ public class AdministrationController {
         return "redirect:/parts/all";
     }
 
-    @GetMapping("/orders/all")
-    public String allOrders(Model model) {
-        model.addAttribute("allOrders", orderService.findAllOrders());
-        return "orders";
-    }
 
-    @GetMapping("/users/all")
-    public String allUsers(Model model) {
-        model.addAttribute("allUsers", userService.findAllUsers());
-        return "users";
-    }
-    @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteUserById(id);
-        return "redirect:/administration/users/all";
-    }
-
-    @GetMapping("/users/change-role/{id}")
-    public String changeUserRole(@PathVariable Long id) {
-        userService.changeUserRole(id);
-        return "redirect:/administration/users/all";
-    }
-    @ModelAttribute("allUsers")
-    public UserViewModel allUsers() {
-        return new UserViewModel();
-    }
-    @ModelAttribute("roleChangeDTO")
-    public RoleChangeDTO roleChangeDTO() {
-        return new RoleChangeDTO();
-    }
-    @ModelAttribute("allRoles")
-    public RolesEnum[] allRoles() {
-        return RolesEnum.values();
-    }
-    @ModelAttribute("allOrders")
-    public OrderViewModel allOrders() {
-        return new OrderViewModel();
-    }
 
     @ModelAttribute("partViewModel")
     public PartViewModel partViewModel() {
