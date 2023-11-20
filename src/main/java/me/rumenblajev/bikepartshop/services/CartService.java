@@ -55,7 +55,7 @@ public class CartService {
 
     public void addPartToCart(final User user, final Long partId) {
         final var cart = getOpenUserCart(user);
-        final var part = bikePartService.findById(partId);
+        final var part = bikePartService.findById(partId).get();
 
         if(cart.isEmpty()) {
             Cart newCart = new Cart();

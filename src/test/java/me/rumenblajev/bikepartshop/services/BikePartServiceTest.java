@@ -4,8 +4,6 @@ import me.rumenblajev.bikepartshop.enums.BikePartCategoryEnum;
 import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
 import me.rumenblajev.bikepartshop.repositories.BikePartCategoryRepository;
-import me.rumenblajev.bikepartshop.repositories.BikePartRepository;
-import me.rumenblajev.bikepartshop.repositories.BrandRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,7 @@ class BikePartServiceTest {
     private BikePartService bikePartService;
     @Autowired
     private BikePartCategoryRepository bikePartCategoryRepository;
-    @Autowired
-    private BikePartRepository bikePartRepository;
-    @Autowired
-    private BrandRepository brandRepository;
+
     @BeforeEach
     void setUp() {
         PartCreateDTO partCreateDTO = new PartCreateDTO();
@@ -36,6 +31,7 @@ class BikePartServiceTest {
         partCreateDTO.setPictureUrl("pictureUrl1");
         bikePartService.savePart(partCreateDTO);
     }
+
     @Test
     void test_findAllPartsViewModel_returnsCorrect() {
         PartViewModel partViewModel = new PartViewModel();
@@ -62,17 +58,20 @@ class BikePartServiceTest {
     void test_findAllPartsByCategory_returnAllWithEmptyQuery() {
         assertEquals(1, bikePartService.findAllPartsByCategory("").size());
     }
+
     @Test
     void test_findAllPartsByCategory_returnNoneWithWrongQuery() {
         assertEquals(0, bikePartService.findAllPartsByCategory("veryTestingOfMe").size());
     }
+
     @Test
     void test_findAllPartsByCategory_returnOneWithGoodQuery() {
         assertEquals(1, bikePartService.findAllPartsByCategory("BRAKES").size());
     }
+
     @Test
     void test_findPartViewModelById_throwsExceptionWhenBadId() {
-        assertThrows(IllegalArgumentException.class, () ->bikePartService.findPartViewModelById(2L));
+        assertNull(bikePartService.findPartViewModelById(2L));
     }
 
     @Test
@@ -99,12 +98,12 @@ class BikePartServiceTest {
 
     @Test
     void test_findById_returnsNullWithBadId() {
-        assertNull(bikePartService.findById(2L));
+        assertTrue(bikePartService.findById(2L).isEmpty());
     }
 
     @Test
     void test_findById_returnsPartWithGoodId() {
-        assertNotNull(bikePartService.findById(1L));
+        assertTrue(bikePartService.findById(1L).isPresent());
     }
 
     @Test
@@ -145,8 +144,8 @@ class BikePartServiceTest {
         partViewModel.setCategory(bikePartCategoryRepository.findByName(BikePartCategoryEnum.BRAKES).get());
         partViewModel.setPictureUrl("pictureUrl1");
 
-        bikePartService.saveEditedPart(partViewModel,1L);
-        assertEquals(10, bikePartService.findById(1L).getStock());
+        bikePartService.saveEditedPart(partViewModel, 1L);
+        assertEquals(10, bikePartService.findById(1L).get().getStock());
     }
 
     @Test
