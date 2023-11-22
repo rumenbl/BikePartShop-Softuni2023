@@ -18,23 +18,21 @@
             class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <h2 class="row g-2 mt-2 mx-auto">Login</h2>
         <div class="row form-group">
-            <label for="username" class="text-white font-weight-bold">Username</label>
             <input
                     id="username"
                     name="username"
                     th:value="${username}"
                     type="text"
-                    class="form-control"
+                    class="form-control mt-2"
                     placeholder="Username"/>
 
         </div>
         <div class="row form-group">
-            <label for="password" class="text-white font-weight-bold">Password</label>
             <input
                     id="password"
                     name="password"
                     type="password"
-                    class="form-control"
+                    class="form-control mt-2"
                     placeholder="Password"/>
 
             <p th:if="${checkCredentials}" class="errors alert alert-danger">
