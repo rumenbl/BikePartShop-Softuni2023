@@ -11,69 +11,79 @@
 </div>
 
 <div>
-    <h2>Register</h2>
     <form
         th:action="@{/users/register}"
         th:method="post"
         th:object="${userRegisterDTO}"
+        class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
     >
-        <div>
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" th:field="*{firstName}"/>
+        <h2 class="row g-2 mt-2 mx-auto">Register</h2>
+
+        <div class="row">
+            <input type="text" id="firstName" th:field="*{firstName}" class="form-control" placeholder="First Name"/>
             <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" th:field="*{lastName}"/>
+        <div class="row form-group mt-2">
+            <input type="text" id="lastName" th:field="*{lastName}"class="form-control" placeholder="Last Name"/>
             <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="age">Age</label>
-            <input type="number" id="age" th:field="*{age}"/>
+        <div class="row form-group mt-2">
+            <input type="number" id="age" th:field="*{age}" class="form-control" placeholder="Age"/>
             <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" th:field="*{email}"/>
+        <div class="row form-group mt-2">
+            <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email"/>
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="username">Username</label>
-            <input type="text" id="username" th:field="*{username}"/>
+        <div class="row form-group mt-2">
+            <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username"/>
             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" th:field="*{password}"/>
+        <div class="row form-group mt-2">
+            <input type="password" id="password" th:field="*{password}" class="form-control" placeholder="Password"/>
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" th:field="*{confirmPassword}"/>
+        <div class="row form-group mt-2">
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}"class="form-control" placeholder="Confirm Password"/>
             <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" id="phoneNumber" th:field="*{phoneNumber}"/>
+        <div class="row form-group mt-2">
+            <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="Phone Number"/>
             <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
-            <label for="gender">Gender</label>
+        <div class="row form-group mt-2">
             <select
                 th:field="*{gender}"
                 id="gender"
                 name="gender"
+                class="form-control form-select"
                 placeholder="Gender"
             >
-                <option value="" selected>Gender</option>
+                <option style="display:none" value="" selected>Gender</option>
                 <option th:each="gr :${T(me.rumenblajev.bikepartshop.enums.GenderEnum).values()}"
                         th:text="${gr}" th:value="${gr}"></option>
             </select>
@@ -81,7 +91,9 @@
             <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="errors alert alert-danger">
                 customError
             </p>
+        </div>
 
+        <div class="row form-group mt-2">
             <input type="submit" class="btn btn-info btn-lg" value="Register"/>
         </div>
     </form>
