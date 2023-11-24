@@ -18,7 +18,7 @@ public class PartAdministrationController {
 
     private final BikePartService bikePartService;
 
-    @GetMapping("/part/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editPart(final @PathVariable Long id,
                            final Model model) {
 
@@ -28,7 +28,7 @@ public class PartAdministrationController {
         return "edit-bike-part";
     }
 
-    @PostMapping("/part/edit/{id}")
+    @PostMapping("/edit/{id}")
     public String editPartSubmit(final @Valid PartViewModel partViewModel,
                                  final BindingResult bindingResult,
                                  final RedirectAttributes redirectAttributes,
@@ -49,18 +49,18 @@ public class PartAdministrationController {
         return "redirect:/parts/all";
     }
 
-    @GetMapping("/part/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deletePart(final @PathVariable Long id) {
         bikePartService.deletePart(id);
         return "redirect:/parts/all";
     }
 
-    @GetMapping("/part/create")
+    @GetMapping("/create")
     public String createPart() {
         return "add-bike-part";
     }
 
-    @PostMapping("/part/create")
+    @PostMapping("/create")
     public String createPartSubmit(final @Valid PartCreateDTO partCreateDTO,
                                    final BindingResult bindingResult,
                                    final RedirectAttributes redirectAttributes) {

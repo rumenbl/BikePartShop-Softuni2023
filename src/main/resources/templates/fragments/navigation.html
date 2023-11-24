@@ -7,13 +7,13 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-expand-lg navbar-dark custom-nav-bar bg-dark" style="width: 100vw">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-nav-bar bg-dark">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto col-12 justify-content-between">
+            <ul class="navbar-nav mr-auto col-12 justify-content-evenly">
                 <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/users/home}">Home</a>
@@ -23,22 +23,22 @@
                             <input class="btn btn-link nav-link a" type="submit" value="Logout"></form>
                     </li>
                     <li class="nav-item " sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link b" style="width: 111%" th:href="@{/administration/part/create}">Add part to Database</a>
+                        <a class="nav-link b" th:href="@{/administration/parts/create}">Add part to Database</a>
                     </li>
                     <li class="nav-item " sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link b" style="width: 120%" th:href="@{/administration/users/all}">All Users</a>
+                        <a class="nav-link b" th:href="@{/administration/users/all}">All Users</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link b" style="width: 120%" th:href="@{/parts/all}">All parts</a>
+                        <a class="nav-link b" th:href="@{/parts/all}">All parts</a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link" style="width: 120%" th:href="@{/parts/cart}">Cart</a>
+                        <a class="nav-link" th:href="@{/parts/cart}">Cart</a>
                     </li>
                     <li class="nav-item a" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" style="width: 120%" th:href="@{/users/profile}">Profile</a>
+                        <a class="nav-link" th:href="@{/users/profile}">Profile</a>
                     </li>
                     <li class="nav-item a" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link" style="width: 100%" th:href="@{/administration/orders/all}">Orders</a>
+                        <a class="nav-link" th:href="@{/administration/orders/all}">Orders</a>
                     </li>
                 </th:block>
 
