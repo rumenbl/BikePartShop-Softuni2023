@@ -10,20 +10,19 @@
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
 
-<div class="row">
-    <div th:each="part : ${parts}" th:object="${part}" class="book-container">
-        <div class="card mb-4 box-shadow" style="top:20px">
+<div class="row row-cols-1 row-cols-md-auto gap-4 justify-content-center">
+    <div th:each="part : ${parts}" th:object="${part}">
+        <div class="card col" style="top:20px">
             <div class="card-body customized">
-                <span th:text="*{title}"></span>
-                <img th:src="*{pictureUrl}" class="card-img-top" style="max-width: 10vw; max-height: 10vw" alt="Part Picture"
+                <img th:src="*{pictureUrl}" class="card-img-top w-auto" style="max-width: 10vw; max-height: 10vw; min-width: 200px; min-height: 200px" alt="Part Picture"
                      data-holder-rendered="true">
-                <h3 class="accordion">Details: </h3>
-                <div class="panel">
-                    <p class="card-text border-bottom sb">Description: <span th:text="*{description}"></span></p>
-                    <p class="card-text border-bottom sb">Category: <span th:text="*{category.name.name()}"></span></p>
-                    <p class="card-text border-bottom sb">Brand: <span th:text="*{brand}"></span></p>
-                    <p class="card-text border-bottom sb">Price: <span th:text="*{price}"></span></p>
-                    <p class="card-text border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
+                <h5 th:text="*{title}" class="card-title" style="font-size: 3vmin; max-width: 20vw"></h5>
+                <div class="card-text">
+                    <p class="border-bottom sb">Description: <span th:text="*{description}"></span></p>
+                    <p class="border-bottom sb">Category: <span th:text="*{category.name.name()}"></span></p>
+                    <p class="border-bottom sb">Brand: <span th:text="*{brand}"></span></p>
+                    <p class="border-bottom sb">Price: <span th:text="*{price}"></span></p>
+                    <p class="border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn btn-group customized-button">
@@ -33,7 +32,7 @@
                     </div>
                 </div>
                 <div class="btn btn-group customized-button" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/administration/part/edit/{id}(id = *{id})}" th:method="post" type="submit"
+                    <a th:href="@{/administration/parts/edit/{id}(id = *{id})}" th:method="post" type="submit"
                        class="btn btn-sm btn-outline-secondary button-customized"
                        data-bs-target="#addModel">Edit Part</a>
                 </div>
