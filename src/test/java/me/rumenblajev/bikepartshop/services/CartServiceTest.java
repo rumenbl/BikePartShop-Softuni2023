@@ -107,4 +107,12 @@ class CartServiceTest {
         cartService.addPartToCart(userRepository.findById(1L).get(), 2L);
         assertEquals(2, cartRepository.findById(1L).get().getCartItems().size());
     }
+
+    @Test
+    void test_addPartToCart_createsAndSavesNewCartWhenGivenEmptyCart() {
+        User adminUser = userRepository.findById(1L).get();
+        cartService.closeUserCart(adminUser);
+        cartService.addPartToCart(adminUser, 1L);
+        assertEquals(1, cartService.getOpenUserCart(adminUser).get().getCartItems().size());
+    }
 }
