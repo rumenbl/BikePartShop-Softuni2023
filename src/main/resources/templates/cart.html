@@ -8,6 +8,15 @@
 <body>
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
+    <div>
+        <label>Select Shopping Currency</label>
+        <select th:onchange="'window.location.href = \'' + '?shoppingCurrency=\' + this.value ' ">
+            <option th:each="currency : ${T(me.rumenblajev.bikepartshop.enums.ShoppingCurrencyEnum).values()}"
+                    th:text="${currency}"
+                    th:selected="${ #strings.equals(param.getOrDefault('shoppingCurrency','BGN'),currency) }"
+            ></option>
+        </select>
+    </div>
 </div>
 <div class="row">
     <div th:each="content : ${cartContent}" th:object="${content}">
@@ -21,7 +30,7 @@
                         <input disabled type="text" class="form-control" id="title" th:value="*{part.title}">
                     </div>
                     <div class="card-text border-bottom">
-                        <label for="price">Price :</label>
+                        <label for="price">Price (<span th:text="${param.getOrDefault('shoppingCurrency','BGN')} ?: 'BGN'"></span>) :</label>
                         <input disabled type="number" class="form-control" id="price" th:value="*{part.price}">
                     </div>
                     <div class="card-text border-bottom ">

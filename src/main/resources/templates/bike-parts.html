@@ -8,6 +8,15 @@
 <body>
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
+    <div>
+        <label>Select Shopping Currency</label>
+        <select th:onchange="'window.location.href = \'' + '?shoppingCurrency=\' + this.value ' ">
+            <option th:each="currency : ${T(me.rumenblajev.bikepartshop.enums.ShoppingCurrencyEnum).values()}"
+                    th:text="${currency}"
+                    th:selected="${ #strings.equals(param.getOrDefault('shoppingCurrency','BGN'),currency) }"
+            ></option>
+        </select>
+    </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-auto gap-4 justify-content-center">
@@ -21,7 +30,7 @@
                     <p class="border-bottom sb">Description: <span th:text="*{description}"></span></p>
                     <p class="border-bottom sb">Category: <span th:text="*{category.name.name()}"></span></p>
                     <p class="border-bottom sb">Brand: <span th:text="*{brand}"></span></p>
-                    <p class="border-bottom sb">Price: <span th:text="*{price}"></span></p>
+                    <p class="border-bottom sb">Price (<span th:text="${param.getOrDefault('shoppingCurrency','BGN')} ?: 'BGN'"></span>): <span th:text="*{price}"></span> </p>
                     <p class="border-bottom sb"><td th:text="*{stock} ? 'In Stock' : 'Out Of Stock'"></td></p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">

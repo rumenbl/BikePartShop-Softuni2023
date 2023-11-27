@@ -96,7 +96,7 @@
             </p>
         </div>
         <div class="form-group col-md-6 mb-3">
-            <label for="price" class="text-white font-weight-bold">Price</label>
+            <label for="price" class="text-white font-weight-bold">Price (BGN)</label>
             <input
                     th:field="*{price}"
                     th:errorclass="'is-invalid bg-danger'"
@@ -105,7 +105,7 @@
                     type="number"
                     step="any"
                     class="form-control"
-                    placeholder="Price"/>
+                    placeholder="Price (BGN)"/>
             <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="errors alert alert-danger">
                 A custom Error Message.
             </p>
