@@ -1,6 +1,7 @@
 package me.rumenblajev.bikepartshop.web;
 
 import lombok.RequiredArgsConstructor;
+import me.rumenblajev.bikepartshop.enums.ShoppingCurrencyEnum;
 import me.rumenblajev.bikepartshop.models.entity.CartItems;
 import me.rumenblajev.bikepartshop.models.entity.User;
 import me.rumenblajev.bikepartshop.models.view.PartViewModel;
@@ -10,10 +11,7 @@ import me.rumenblajev.bikepartshop.services.CartService;
 import me.rumenblajev.bikepartshop.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,19 +25,33 @@ public class BikePartController {
     private final CartService cartService;
     private final CartItemsService cartItemsService;
     private final UserService userService;
+    private ShoppingCurrencyEnum shoppingCurrency = ShoppingCurrencyEnum.BGN;
 
     @GetMapping("/all")
-    public String viewAllParts(final Model model) {
+    public String viewAllParts(@RequestParam(value = "shoppingCurrency", required = false, defaultValue = "BGN")
+            final String shoppingCurrencyStr,
+                               final Model model) {
         List<PartViewModel> parts = bikePartService.findAllPartsViewModel();
+
+        parts.forEach(
+            part -> part.setPrice(part.getPrice() * ShoppingCurrencyEnum.valueOf(shoppingCurrencyStr).getValue())
+        );
+
         model.addAttribute("parts", parts);
         return "bike-parts";
     }
 
     @GetMapping("/category/{query}")
-    public String searchPartsByCategory(final Model model,
+    public String searchPartsByCategory(@RequestParam(value = "shoppingCurrency", required = false, defaultValue = "BGN")
+                                            final String shoppingCurrencyStr,
+                                        final Model model,
                                         final @PathVariable String query) {
 
         List<PartViewModel> parts = bikePartService.findAllPartsByCategory(query);
+        parts.forEach(
+                part -> part.setPrice(part.getPrice() * ShoppingCurrencyEnum.valueOf(shoppingCurrencyStr).getValue())
+        );
+
         model.addAttribute("parts", parts);
         return "bike-parts";
     }
@@ -64,9 +76,10 @@ public class BikePartController {
     }
 
     @GetMapping("/cart")
-    public String viewCart(final Model model,
+    public String viewCart(@RequestParam(value = "shoppingCurrency", required = false, defaultValue = "BGN")
+                               final String shoppingCurrencyStr,
+                           final Model model,
                            final Principal principal) {
-
         final var user = userService.findByUsername(principal.getName()).get();
         final var cart = cartService.getOpenUserCart(user);
 
@@ -79,10 +92,13 @@ public class BikePartController {
             return "redirect:/parts/all";
         }
 
+        cartItems.forEach(
+                cartItem -> cartItem.getPart().setPrice(cartItem.getPart().getPrice()* ShoppingCurrencyEnum.valueOf(shoppingCurrencyStr).getValue())
+        );
+
         model.addAttribute("cartContent", cartItems);
         return "cart";
     }
-
     @ModelAttribute("parts")
     public PartViewModel getParts() {
         return new PartViewModel();
@@ -92,4 +108,5 @@ public class BikePartController {
     public CartItems getCartContent() {
         return new CartItems();
     }
+
 }
