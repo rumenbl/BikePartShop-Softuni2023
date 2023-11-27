@@ -24,3 +24,7 @@ spring:
   sql:
     init:
       mode: always
+currency:
+  update:
+    interval: 3600
+    api-key: fca_live_yqvzPxx4bAhGTYaAGMSnUPv952bLTwk0v3oxyV7Y
