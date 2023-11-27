@@ -13,7 +13,6 @@ public class ExchangeRateScheduler {
     private final ExchangeRateService exchangeRateService;
     @Scheduled(fixedRateString = "${currency.update.interval}", timeUnit = TimeUnit.SECONDS)
     private void updateExchangeRates() {
-        System.out.println("Updating exchange rates...");
         exchangeRateService.updateAllExchangeRates();
     }
 }
