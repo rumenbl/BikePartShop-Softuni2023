@@ -37,7 +37,10 @@ public class CartItemsService {
     }
 
     public void closeUserCartItems(final User user) {
-        cartItemsRepository.findAllByCart_UserAndCartStatus(user, "pending")
-                .forEach(cartItems -> cartItems.getCart().setStatus("closed"));
+        cartItemsRepository.findAllByCart_UserAndCartStatus(user, "open")
+                .forEach(cartItems -> {
+                    cartItems.getCart().setStatus("closed");
+                    cartItemsRepository.save(cartItems);
+                });
     }
 }
