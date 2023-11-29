@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CartServiceTest {
     @Autowired
-    private CartService cartService;
+    private CartService subject;
     @MockBean
     private CartRepository cartRepository;
     @MockBean
@@ -60,7 +60,7 @@ class CartServiceTest {
         var user = userRepository.findById(1L).get();
         when(cartRepository.findByUserAndStatus(user, "open")).thenReturn(Optional.of(new Cart()));
 
-        var cart = cartService.getOpenUserCart(user);
+        var cart = subject.getOpenUserCart(user);
 
         assertTrue(cart.isPresent());
     }
@@ -71,7 +71,7 @@ class CartServiceTest {
         var user = userRepository.findById(1L).get();
         when(cartRepository.findByUserAndStatus(user, "open")).thenReturn(Optional.empty());
 
-        Optional<Cart> cart = cartService.getOpenUserCart(user);
+        Optional<Cart> cart = subject.getOpenUserCart(user);
 
         assertTrue(cart.isEmpty());
     }
@@ -82,7 +82,7 @@ class CartServiceTest {
         when(cartRepository.findById(1L)).thenReturn(Optional.of(new Cart()));
         when(cartItemsRepository.findCartItemsByCartId(1L)).thenReturn(List.of(cartItems));
 
-        assertFalse(cartService.getCartContent(1L).isEmpty());
+        assertFalse(subject.getCartContent(1L).isEmpty());
     }
 
     @Test
@@ -90,7 +90,7 @@ class CartServiceTest {
         var cartItems = cartItemsRepository.findById(1L).get();
         cartItems.setAmount(2);
         var cart = cartRepository.findById(1L).get();
-        cartService.save(cart, cartItems);
+        subject.save(cart, cartItems);
         assertEquals(2, cartItemsRepository.findById(1L).get().getAmount());
     }
 
@@ -100,7 +100,7 @@ class CartServiceTest {
         var cart = cartRepository.findById(1L);
 
         when(cartRepository.findByUserAndStatus(user,"open")).thenReturn(cart);
-        cartService.closeUserCart(user);
+        subject.closeUserCart(user);
 
         verify(cartRepository,times(1)).save(any());
 
@@ -123,7 +123,7 @@ class CartServiceTest {
         when(cartRepository.findByUserAndStatus(user, "open")).thenReturn(Optional.of(cart));
         when(cartItemsRepository.findByPartIdAndCartId(2L, 3L)).thenReturn(Optional.of(cartItems));
 
-        cartService.addPartToCart(user, 2L);
+        subject.addPartToCart(user, 2L);
 
         assertEquals(2, cartRepository.findById(3L).get().getCartItems().stream().toList().get(0).getAmount());
     }
@@ -133,16 +133,16 @@ class CartServiceTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
         when(bikePartService.findById(1L)).thenReturn(Optional.of(new BikePart()));
         var adminUser = userRepository.findById(1L).get();
-        cartService.closeUserCart(adminUser);
+        subject.closeUserCart(adminUser);
         verify(cartRepository,times(1)).findByUserAndStatus(adminUser,"open");
 
-        cartService.addPartToCart(adminUser, 1L);
+        subject.addPartToCart(adminUser, 1L);
         verify(cartRepository,times(1)).save(any());
 
         var cart = new Cart();
         cart.setCartItems(Set.of(new CartItems(), new CartItems()));
-        when(cartService.getOpenUserCart(adminUser)).thenReturn(Optional.of(cart));
+        when(subject.getOpenUserCart(adminUser)).thenReturn(Optional.of(cart));
 
-        assertEquals(2, cartService.getOpenUserCart(adminUser).get().getCartItems().size());
+        assertEquals(2, subject.getOpenUserCart(adminUser).get().getCartItems().size());
     }
 }
