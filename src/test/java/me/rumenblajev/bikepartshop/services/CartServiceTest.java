@@ -42,16 +42,6 @@ class CartServiceTest {
         when(cartRepository.findById(1L)).thenReturn(Optional.of(new Cart()));
         when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
         when(bikePartService.findById(1L)).thenReturn(Optional.of(new BikePart()));
-//        var partCreateDTO = mockPartCreateDto("title1");
-//        bikePartService.savePart(partCreateDTO);
-//        Cart cart = new Cart();
-//        cart.setUser(userRepository.findById(1L).get()); // admin user
-//        cartRepository.save(cart);
-//        CartItems cartItems = new CartItems();
-//        cartItems.setCart(cart);
-//        cartItems.setPart(bikePartService.findById(1L).get());
-//        cartItems.setAmount(1);
-//        cartItemsRepository.save(cartItems);
     }
 
     @Test
