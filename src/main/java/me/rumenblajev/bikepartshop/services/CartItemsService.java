@@ -6,6 +6,7 @@ import me.rumenblajev.bikepartshop.models.entity.Cart;
 import me.rumenblajev.bikepartshop.models.entity.CartItems;
 import me.rumenblajev.bikepartshop.models.entity.User;
 import me.rumenblajev.bikepartshop.repositories.CartItemsRepository;
+import me.rumenblajev.bikepartshop.repositories.CartRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class CartItemsService {
     private final CartItemsRepository cartItemsRepository;
+    private final CartRepository cartRepository;
 
     public Optional<CartItems> findPartInCart(final Cart cart, final BikePart part){
         return cartItemsRepository.findByPartIdAndCartId(part.getId(), cart.getId());
@@ -40,7 +42,7 @@ public class CartItemsService {
         cartItemsRepository.findAllByCart_UserAndCartStatus(user, "open")
                 .forEach(cartItems -> {
                     cartItems.getCart().setStatus("closed");
-                    cartItemsRepository.save(cartItems);
+                    cartRepository.save(cartItems.getCart());
                 });
     }
 }
