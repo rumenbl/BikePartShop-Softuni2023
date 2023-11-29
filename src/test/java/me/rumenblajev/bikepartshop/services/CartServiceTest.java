@@ -1,7 +1,5 @@
 package me.rumenblajev.bikepartshop.services;
 
-import me.rumenblajev.bikepartshop.enums.BikePartCategoryEnum;
-import me.rumenblajev.bikepartshop.models.dto.PartCreateDTO;
 import me.rumenblajev.bikepartshop.models.entity.BikePart;
 import me.rumenblajev.bikepartshop.models.entity.Cart;
 import me.rumenblajev.bikepartshop.models.entity.CartItems;
@@ -146,17 +144,5 @@ class CartServiceTest {
         when(cartService.getOpenUserCart(adminUser)).thenReturn(Optional.of(cart));
 
         assertEquals(2, cartService.getOpenUserCart(adminUser).get().getCartItems().size());
-    }
-
-    private PartCreateDTO mockPartCreateDto(final String title) {
-        var partCreateDTO = new PartCreateDTO();
-        partCreateDTO.setTitle(title);
-        partCreateDTO.setPrice(1.0);
-        partCreateDTO.setStock(1);
-        partCreateDTO.setBrand("brand1");
-        partCreateDTO.setCategory(BikePartCategoryEnum.BRAKES);
-        partCreateDTO.setPictureUrl("pictureUrl1");
-
-        return partCreateDTO;
     }
 }
