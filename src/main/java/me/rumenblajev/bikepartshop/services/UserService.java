@@ -22,6 +22,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
     private final ModelMapper modelMapper;
+    private final OrderService orderService;
+    private final CartService cartService;
+    private final CartItemsService cartItemsService;
 
     public void initAdminUser() {
         if(this.userRepository.count() == 0){
@@ -84,7 +87,16 @@ public class UserService {
         ).toList();
     }
 
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUserById(final Long id) {
+        final var usr = userRepository.findById(id);
+
+        if(usr.isPresent()) {
+            final var user = usr.get();
+            orderService.deleteAllOrdersForUser(user);
+            cartItemsService.deleteAllCartItemsForUser(user);
+            cartService.deleteAllCartsForUser(user);
+            userRepository.delete(user);
+        }
+
     }
 }

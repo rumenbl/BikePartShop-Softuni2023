@@ -11,10 +11,10 @@ import java.util.Set;
 @Getter
 @Setter
 public class Cart extends BaseEntity {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
 
     private String status = "open";
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE, fetch =  FetchType.LAZY)
     private Set<CartItems> cartItems;
 }

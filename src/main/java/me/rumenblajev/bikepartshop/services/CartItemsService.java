@@ -45,4 +45,10 @@ public class CartItemsService {
                     cartRepository.save(cartItems.getCart());
                 });
     }
+
+    public void deleteAllCartItemsForUser(final User user) {
+        cartItemsRepository.findAll().stream().filter(cartItems ->
+                cartItems.getCart().getUser().getId().equals(user.getId())
+        ).forEach(cartItemsRepository::delete);
+    }
 }

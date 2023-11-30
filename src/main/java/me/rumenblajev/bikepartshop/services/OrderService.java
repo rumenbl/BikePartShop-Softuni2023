@@ -58,4 +58,10 @@ public class OrderService {
         cartService.closeUserCart(order.getClient());
         cartItemsService.closeUserCartItems(order.getClient());
     }
+
+    public void deleteAllOrdersForUser(final User user) {
+        orderRepository.findAll().stream().filter(order ->
+                order.getClient().getId().equals(user.getId())
+        ).forEach(orderRepository::delete);
+    }
 }

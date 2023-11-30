@@ -72,4 +72,10 @@ public class CartService {
 
         }
     }
+
+    public void deleteAllCartsForUser(final User user) {
+        cartRepository.findAll().stream().filter(cart ->
+                cart.getUser().getId().equals(user.getId())
+        ).forEach(cartRepository::delete);
+    }
 }

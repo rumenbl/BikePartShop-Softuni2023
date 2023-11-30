@@ -22,7 +22,7 @@ public class CartItems {
 
     @Getter
     @Setter
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 

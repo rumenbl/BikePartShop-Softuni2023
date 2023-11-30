@@ -39,7 +39,7 @@ public class User extends BaseEntity {
     @ManyToOne
     private Role role;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private Collection<Cart> cart;
 
     @Override

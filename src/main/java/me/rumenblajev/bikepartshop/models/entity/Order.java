@@ -16,7 +16,7 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<CartItems> items;
 
     @Column(nullable = false)
@@ -25,7 +25,7 @@ public class Order extends BaseEntity {
     @Column(nullable = false,name = "total_value")
     private Double totalValue;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User client;
 }
