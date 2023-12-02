@@ -35,7 +35,7 @@ public class AuthenticationController {
 
     @GetMapping("/home")
     public String home(){
-        return "home";
+        return "redirect:/home";
     }
 
     @GetMapping("/about")
@@ -45,7 +45,7 @@ public class AuthenticationController {
 
     @GetMapping("")
     public String index() {
-        return "index";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")

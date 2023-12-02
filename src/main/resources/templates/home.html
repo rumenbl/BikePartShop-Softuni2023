@@ -9,6 +9,13 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1>Welcome, <span th:text="*{username}"></span>!</h1>
+    </div>
+</div>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
