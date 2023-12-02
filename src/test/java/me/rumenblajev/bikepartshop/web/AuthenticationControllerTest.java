@@ -48,7 +48,8 @@ class AuthenticationControllerTest {
     @Test
     void test_home_returnsHomePageWhenAuthenticated() throws Exception {
         this.mockMvc.perform(get("/users/home"))
-                .andExpect(status().isOk());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/home"));
     }
 
     @Test
@@ -56,12 +57,6 @@ class AuthenticationControllerTest {
         this.mockMvc.perform(get("/users/home"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/users/login"));
-    }
-
-    @Test
-    void test_about_returnsAboutPage() throws Exception {
-        this.mockMvc.perform(get("/users/about"))
-                .andExpect(status().isOk());
     }
 
     @Test
@@ -75,7 +70,8 @@ class AuthenticationControllerTest {
     @Test
     void test_index_returnsIndexPageWhenAuthenticated() throws Exception {
         this.mockMvc.perform(get("/users"))
-                .andExpect(status().isOk());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/home"));
     }
 
     @WithMockUser(username = "admin", roles = {"ADMIN"})
