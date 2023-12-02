@@ -33,6 +33,11 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
     @ModelAttribute("username")
     public String username() {
         return "";

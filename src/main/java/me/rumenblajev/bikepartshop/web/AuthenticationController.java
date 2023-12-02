@@ -38,11 +38,6 @@ public class AuthenticationController {
         return "redirect:/home";
     }
 
-    @GetMapping("/about")
-    public String about() {
-        return "about";
-    }
-
     @GetMapping("")
     public String index() {
         return "redirect:/home";
