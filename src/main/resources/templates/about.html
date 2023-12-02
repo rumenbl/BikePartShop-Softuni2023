@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <th:block th:include="~{fragments/header}"/>
     <title>Title</title>
 </head>
 <body>
-
+<div>
+    <nav th:replace="~{fragments/navigation}">Navigation</nav>
+</div>
+<div class="container mt-4">
+    <div class="about-section">
+        <h2 class="text-center mb-4">About Bike Part Shop</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto about-content">
+                <p>Bike Part Shop is dedicated to providing high-quality bike parts and accessories to cycling enthusiasts. We aim to offer a wide range of products to cater to the needs of casual riders, professional cyclists, and biking enthusiasts of all ages.</p>
+                <p>Our team consists of passionate individuals who share a love for cycling and a commitment to delivering exceptional customer service. We strive to ensure that every customer finds the right parts and accessories for their biking needs.</p>
+                <p>At Bike Part Shop, we believe in the joy of cycling and aim to support our customers in enjoying the best possible biking experience.</p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
