@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password:
-    url: jdbc:mysql://127.0.0.1:3306/bikepartstore?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-    username: root
+    password: ${DB_PASSWORD:}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_DATABASE:bikepartstore}?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     defer-datasource-initialization: true
@@ -27,4 +27,4 @@ spring:
 currency:
   update:
     interval: 3600
-    api-key: fca_live_yqvzPxx4bAhGTYaAGMSnUPv952bLTwk0v3oxyV7Y
+    api-key: ${FCA_KEY:fca_live_yqvzPxx4bAhGTYaAGMSnUPv952bLTwk0v3oxyV7Y}
