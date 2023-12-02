@@ -9,6 +9,18 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
+
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1>Welcome to Bike Part Shop!</h1>
+        <p>Your go-to place for all your biking needs.</p>
+        <div class="btn-group" role="group" aria-label="Login or Register">
+            <a class="btn btn-secondary" href="/users/register" role="button">Register</a>
+            <a class="btn btn-primary" href="/users/login" role="button">Login</a>
+        </div>
+    </div>
+</div>
+
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
