@@ -47,6 +47,7 @@ This project, created as part of the SoftUni Spring Advanced course, serves as a
 - **CircleCI**: Responsible for building and testing the project.
 - **Codecov**: Monitors and maintains code coverage.
 - **GitHub Actions**: Automates building and publishing of the Docker image to GitHub Packages.
+- **Dependabot**: Used for dependency updates.
 
 ## Running the Project (Demo API Key Given)
 ***If you want to run it with your own key use https://freecurrencyapi.com/***
