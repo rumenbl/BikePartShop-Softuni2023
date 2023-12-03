@@ -70,3 +70,24 @@ docker run -p 8080:8080 \
   --env-file .env \
   ghcr.io/rumenbl/bikepartshop-softuni2023:master
 ```
+
+### Running with Docker Compose (Recommended)
+
+- The app will be available at [http://localhost:8080](http://localhost:8080).
+- No additional requirements are needed.
+- The database is included in the compose file.
+- Automatic container restart is enabled upon changes pushed to the repository. Watchtower polls the Docker Image for changes from GitHub Packages every 30 seconds.
+- Health check for the database is included, which will restart on failure.
+- Container will restart on failure.
+
+To start the deployment:
+```bash
+cd deployment
+docker-compose up -d --force-recreate
+```
+
+To tear down the deployment:
+```bash
+cd deployment
+docker-compose down
+```
