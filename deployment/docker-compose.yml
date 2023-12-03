@@ -1,0 +1,38 @@
+version: "3"
+services:
+  bikepartshop-softuni2023:
+    image: ghcr.io/rumenbl/bikepartshop-softuni2023:master
+    container_name: bikepartshop-softuni2023
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env-bikepartshop
+    depends_on:
+      bikepartshop-softuni2023-db:
+        condition: service_healthy
+        restart: true
+  bikepartshop-softuni2023-db:
+    image: mariadb:10.6
+    container_name: bikepartshop-softuni2023-db
+    restart: always
+    ports:
+      - "127.0.0.1:3306:3306"
+    env_file:
+      - .env-bikepartshop-db
+    volumes:
+        - mariadb:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 bikepartshop-softuni2023
+volumes:
+  mariadb:
