@@ -41,7 +41,7 @@ public class PartAdministrationController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partViewModel", partViewModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partViewModel", bindingResult);
-            return "redirect:/administration/part/edit/" + id;
+            return "redirect:/administration/parts/edit/" + id;
         }
 
         bikePartService.saveEditedPart(partViewModel, id);
@@ -68,13 +68,13 @@ public class PartAdministrationController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("partCreateDTO", partCreateDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partCreateDTO", bindingResult);
-            return "redirect:/administration/part/create";
+            return "redirect:/administration/parts/create";
         }
 
         if (bikePartService.checkIfPartTitleAlreadyExists(partCreateDTO.getTitle().trim())) {
             redirectAttributes.addFlashAttribute("partCreateDTO", partCreateDTO);
             redirectAttributes.addFlashAttribute("partAlreadyExists", true);
-            return "redirect:/administration/part/create";
+            return "redirect:/administration/parts/create";
         }
 
         bikePartService.savePart(partCreateDTO);

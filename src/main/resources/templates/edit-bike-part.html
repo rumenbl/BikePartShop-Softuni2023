@@ -11,7 +11,7 @@
 </div>
 
 <section class="row alignment" th:object="${partViewModel}">
-    <form th:action="@{/administration/part/edit/{id}(id = *{id})}" th:method="post">
+    <form th:action="@{/administration/parts/edit/{id}(id = *{id})}" th:method="post">
         <div class="card mb-4 box-shadow">
             <img th:src="*{pictureUrl}" class="card-img-top" style="max-width: 10vw;max-height: 10vw" alt="Item Picture"
                  data-holder-rendered="true" >
@@ -77,7 +77,7 @@
                         </button>
                     </div>
                     <div>
-                        <a th:href="@{/administration/part/delete/{id}(id = *{id})}" class="btn btn-red btn-header-red btn-further save-button">
+                        <a th:href="@{/administration/parts/delete/{id}(id = *{id})}" class="btn btn-red btn-header-red btn-further save-button">
                             DELETE
                         </a>
                     </div>
