@@ -19,11 +19,12 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-auto gap-4 justify-content-center">
+<div class="container-fluid">
+    <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4">
     <div th:each="part : ${parts}" th:object="${part}">
         <div class="card col" style="top:20px">
             <div class="card-body customized">
-                <img th:src="*{pictureUrl}" class="card-img-top w-auto" style="max-width: 10vw; max-height: 10vw; min-width: 200px; min-height: 200px" alt="Part Picture"
+                <img th:src="*{pictureUrl}" class="card-img-top" style="max-width: 10vw; max-height: 10vw; min-width: 200px; min-height: 200px" alt="Part Picture"
                      data-holder-rendered="true">
                 <h5 th:text="*{title}" class="card-title" style="font-size: 3vmin; max-width: 20vw"></h5>
                 <div class="card-text">
@@ -49,7 +50,7 @@
         </div>
     </div>
 </div>
-
+</div>
 </body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
