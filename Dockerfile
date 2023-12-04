@@ -1,4 +1,4 @@
-FROM maven:3.9.5-eclipse-temurin-17-alpine AS build
+FROM maven:3.9.5-eclipse-temurin-17 AS build
 
 ENV BUILD_HOME=/build
 RUN mkdir -p "$BUILD_HOME"
@@ -9,7 +9,7 @@ COPY src $BUILD_HOME/src
 
 RUN mvn -f "$BUILD_HOME"/pom.xml clean package -DskipTests
 
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:17-focal
 
 WORKDIR /app
 COPY --from=build /build/target/*.jar app.jar
