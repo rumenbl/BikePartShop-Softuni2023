@@ -96,6 +96,9 @@ public class AuthenticationController {
 
         final var userRegisterModel = this.userService.registerRegularUser(userRegisterDTO);
         this.userService.register(userRegisterModel);
+
+        redirectAttributes.addFlashAttribute("justRegistered", true);
+
         return USER_LOGIN_REDIRECT_PATH;
     }
 
@@ -116,5 +119,10 @@ public class AuthenticationController {
     @ModelAttribute("userRegisterDTO")
     public UserRegisterDTO userRegisterDTO() {
         return new UserRegisterDTO();
+    }
+
+    @ModelAttribute("justRegistered")
+    public boolean justRegistered() {
+        return false;
     }
 }

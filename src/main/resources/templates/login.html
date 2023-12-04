@@ -16,6 +16,9 @@
             th:action="@{/users/login}"
             th:method="post"
             class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+         <span th:if="${justRegistered}" class="alert alert-success text-center justify-content-center">
+            You have been registered successfully! Now you can log in.
+        </span>
         <h2 class="row g-2 mt-2 mx-auto">Login</h2>
         <div class="row form-group">
             <input
