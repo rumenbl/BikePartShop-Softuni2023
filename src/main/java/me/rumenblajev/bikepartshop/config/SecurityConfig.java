@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/users/login", "/users/register","/about").permitAll()
+                .requestMatchers("/users/login", "/users/register","/about", "/users/login-failed").permitAll()
                 .requestMatchers("/administration/**").hasRole(RolesEnum.ADMIN.name())
                 .requestMatchers("/home","/users/profile").authenticated()
                 .anyRequest()
