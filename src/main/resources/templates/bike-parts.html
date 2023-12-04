@@ -9,8 +9,8 @@
 <div>
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
     <div>
-        <label>Select Shopping Currency</label>
-        <select th:onchange="'window.location.href = \'' + '?shoppingCurrency=\' + this.value ' ">
+        <select class="user-select-auto" th:onchange="'window.location.href = \'' + '?shoppingCurrency=\' + this.value ' ">
+            <option th:value="${param.getOrDefault('shoppingCurrency','BGN')}" selected>Select Shopping Currency</option>
             <option th:each="currency : ${T(me.rumenblajev.bikepartshop.enums.ShoppingCurrencyEnum).values()}"
                     th:text="${currency}"
                     th:selected="${ #strings.equals(param.getOrDefault('shoppingCurrency','BGN'),currency) }"
