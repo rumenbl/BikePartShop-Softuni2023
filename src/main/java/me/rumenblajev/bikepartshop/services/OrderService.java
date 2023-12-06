@@ -2,6 +2,7 @@ package me.rumenblajev.bikepartshop.services;
 
 import lombok.RequiredArgsConstructor;
 import me.rumenblajev.bikepartshop.models.dto.OrderCreateDTO;
+import me.rumenblajev.bikepartshop.models.entity.CartItems;
 import me.rumenblajev.bikepartshop.models.entity.Order;
 import me.rumenblajev.bikepartshop.models.entity.User;
 import me.rumenblajev.bikepartshop.models.view.OrderViewModel;
@@ -33,17 +34,20 @@ public class OrderService {
         }
 
         if(order.getTotalValue() == null) {
-
-            double value = 0.0;
-
-            for (var cartItem : order.getItems()) {
-                value += cartItem.getPart().getPrice() * cartItem.getAmount();
-            }
-
-            order.setTotalValue(value);
+            order.setTotalValue(getTotalItemsValue(order.getItems()));
         }
 
         orderRepository.saveAndFlush(order);
+    }
+
+    private double getTotalItemsValue(final List<CartItems> items) {
+        double value = 0.0;
+
+        for (var cartItem : items) {
+            value += cartItem.getPart().getPrice() * cartItem.getAmount();
+        }
+
+        return value;
     }
 
     public void createUserOrder(final OrderCreateDTO orderCreateDTO, final User user) {
