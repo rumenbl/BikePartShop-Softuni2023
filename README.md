@@ -50,7 +50,7 @@ This project, created as part of the SoftUni Spring Advanced course, serves as a
 - **GitHub Actions**: Automates building and publishing of the Docker image to GitHub Packages.
 - **Dependabot**: Used for dependency updates.
 - **WatchTower**: Used to poll Docker Image from GitHub Packages and restart your running containers with the new image upon changes. (Included in ``deployment/docker-compose.yml``)
-
+- **SonarCloud**: Used to analyze project for bugs, code smells, maintainability issues and such
 ## Running the Project (Demo API Key Given)
 ***If you want to run it with your own key use https://freecurrencyapi.com/***
 
