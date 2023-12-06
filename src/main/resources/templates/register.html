@@ -12,10 +12,10 @@
 
 <div>
     <form
-        th:action="@{/users/register}"
-        th:method="post"
-        th:object="${userRegisterDTO}"
-        class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+            th:action="@{/users/register}"
+            th:method="post"
+            th:object="${userRegisterDTO}"
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
     >
         <h2 class="row g-2 mt-2 mx-auto">Register</h2>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="row form-group mt-2">
-            <input type="text" id="lastName" th:field="*{lastName}"class="form-control" placeholder="Last Name"/>
+            <input type="text" id="lastName" th:field="*{lastName}" class="form-control" placeholder="Last Name"/>
             <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="errors alert alert-danger">
                 customError
             </p>
@@ -62,14 +62,17 @@
         </div>
 
         <div class="row form-group mt-2">
-            <input type="password" id="confirmPassword" th:field="*{confirmPassword}"class="form-control" placeholder="Confirm Password"/>
-            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors alert alert-danger">
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control"
+                   placeholder="Confirm Password"/>
+            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+               class="errors alert alert-danger">
                 customError
             </p>
         </div>
 
         <div class="row form-group mt-2">
-            <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="Phone Number"/>
+            <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control"
+                   placeholder="Phone Number"/>
             <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="errors alert alert-danger">
                 customError
             </p>
@@ -77,11 +80,11 @@
 
         <div class="row form-group mt-2">
             <select
-                th:field="*{gender}"
-                id="gender"
-                name="gender"
-                class="form-control form-select"
-                placeholder="Gender"
+                    th:field="*{gender}"
+                    id="gender"
+                    name="gender"
+                    class="form-control form-select"
+                    placeholder="Gender"
             >
                 <option style="display:none" value="" selected>Gender</option>
                 <option th:each="gr :${T(me.rumenblajev.bikepartshop.enums.GenderEnum).values()}"

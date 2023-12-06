@@ -25,8 +25,6 @@ public class BikePartController {
     private final CartService cartService;
     private final CartItemsService cartItemsService;
     private final UserService userService;
-    private ShoppingCurrencyEnum shoppingCurrency = ShoppingCurrencyEnum.BGN;
-
     @GetMapping("/all")
     public String viewAllParts(@RequestParam(value = "shoppingCurrency", required = false, defaultValue = "BGN")
             final String shoppingCurrencyStr,

@@ -38,6 +38,6 @@ public class CartItems {
     @Getter
     @Setter
     private Integer amount = 1;
-    private String status = "pending";
+    private final String status = "pending";
 
 }
