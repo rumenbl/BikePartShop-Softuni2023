@@ -13,11 +13,12 @@
 <form
         th:action="@{/orders/create}"
         th:method="POST"
-        th:object="${orderCreateDTO}">
-    <div class="row">
+        th:object="${orderCreateDTO}"
+        class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <div class="row g-2 mt-2 mx-auto">
         <div class="col-50">
-            <h3>Delivery Information</h3>
-            <div>
+            <h3 class="row form-group mt-2">Delivery Information</h3>
+            <div class="row form-group mt-2">
                 <label for="clientName"><i class="fa fa-user"></i> Name </label>
                 <input
                         th:field="*{clientName}"
@@ -25,103 +26,123 @@
                         type="text"
                         id="clientName"
                         name="clientName"
-                        placeholder="Your Name">
+                        placeholder="Your Name"
+                        class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('clientName')}"
-                       th:errors="*{clientName}" class="bg-danger text-light rounded">
+                       th:errors="*{clientName}"
+                       class="bg-danger text-light rounded">
                     Field must be at least 4 characters.
                 </small>
             </div>
-            <div>
+            <div class="row form-group mt-2">
                 <label for="deliveryCountry"><i class="fa fa-flag"></i> Country</label>
                 <input th:field="*{deliveryCountry}"
                        th:errorclass="'is-invalid bg-danger'"
                        type="text"
                        id="deliveryCountry"
                        name="deliveryCountry"
-                       placeholder="Country">
+                       placeholder="Country"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('deliveryCountry')}"
                        th:errors="*{deliveryCountry}" class="bg-danger text-light rounded">
                     Field must be at least 3 characters.
                 </small>
             </div>
-            <div>
+            <div class="row form-group mt-2">
                 <label for="clientPhoneNumber"><i class="fa fa-phone"></i> Phone Number</label>
                 <input th:field="*{clientPhoneNumber}"
                        th:errorclass="'is-invalid bg-danger'"
                        type="text"
                        id="clientPhoneNumber"
                        name="clientPhoneNumber"
-                       placeholder="Phone Number">
+                       placeholder="Phone Number"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('clientPhoneNumber')}"
                        th:errors="*{clientPhoneNumber}" class="bg-danger text-light rounded">
                     Phone number is invalid.
                 </small>
             </div>
 
-            <div>
+            <div class="row form-group mt-2">
                 <label for="clientEmail"><i class="fa fa-envelope"></i> Email</label>
                 <input th:field="*{clientEmail}"
                        th:errorclass="'is-invalid bg-danger'"
                        type="text" id="clientEmail"
                        name="clientEmail"
-                       placeholder="yourname@example.com">
+                       placeholder="yourname@example.com"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('clientEmail')}"
                        th:errors="*{clientEmail}" class="bg-danger text-light rounded">
                     Invalid email.
                 </small>
             </div>
-            <div>
+            <div class="row form-group mt-2">
                 <label for="deliveryCity"><i class="fa fa-institution"></i> City</label>
                 <input th:field="*{deliveryCity}"
                        th:erroclass="'is-invalid bg-danger'"
                        type="text"
                        id="deliveryCity"
                        name="deliveryCity"
-                       placeholder="New York">
+                       placeholder="New York"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('deliveryCity')}"
                        th:errors="*{deliveryCity}" class="bg-danger text-light rounded">
                     Field must be at least 3 characters.
                 </small>
             </div>
-            <div>
+            <div class="row form-group mt-2">
                 <label for="deliveryAddress"><i class="fa fa-address-card-o"></i> Address</label>
                 <input th:field="*{deliveryAddress}"
                        th:errorclass="'is-invalid bg-danger'"
                        type="text" id="deliveryAddress"
                        name="deliveryAddress"
-                       placeholder="New York Avenue 1912">
+                       placeholder="New York Avenue 1912"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('deliveryAddress')}"
                        th:errors="*{deliveryAddress}" class="bg-danger text-light rounded">
                     Field must be at least 5 characters.
                 </small>
             </div>
-            <div>
+            <div class="row form-group mt-2">
                 <label for="deliveryZipCode"><i class="fa fa-map-pin"></i>Zip Code</label>
                 <input th:field="*{deliveryZipCode}"
                        th:errorclass="'is-invalid bg-danger'"
                        type="text" id="deliveryZipCode"
                        name="deliveryZipCode"
-                       placeholder="66666">
+                       placeholder="66666"
+                       class="form-control"
+                >
                 <small th:if="${#fields.hasErrors('deliveryZipCode')}"
                        th:errors="*{deliveryZipCode}" class="bg-danger text-light rounded">
                     Field must be at least 3 characters.
                 </small>
             </div>
-            <selection>
+            <div class="row form-group mt-2">
                 <label for="courier"><i class="fa fa-shipping-fast"></i>Courier (Payment on delivery)</label>
                 <div>
                     <select th:field="*{deliveryCourier}"
                             th:errorclass="'is-invalid bg-danger'"
                             id="courier"
-                            name="courier" class="custom-btn-style">
+                            name="courier"
+                            class="custom-btn-style form-select">
                         <option selected value="Econt">Econt</option>
                         <option value="Speedy">Speedy</option>
                     </select>
                 </div>
-            </selection>
+            </div>
         </div>
     </div>
-    <input type="submit" value="Create Order" class="btn btn-primary">
+    <div>
+        <div class="row form-group mt-2">
+            <input type="submit" value="Create Order" class="btn btn-primary">
+        </div>
+    </div>
 </form>
 
 </body>
