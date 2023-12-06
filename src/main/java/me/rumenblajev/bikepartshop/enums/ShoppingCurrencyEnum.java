@@ -1,13 +1,11 @@
 package me.rumenblajev.bikepartshop.enums;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public enum ShoppingCurrencyEnum {
     BGN, USD, EUR;
+    @Setter
     private double value;
-    public double getValue() {
-        return this.value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
 }
