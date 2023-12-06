@@ -172,7 +172,7 @@ class AuthenticationControllerTest {
         userRegisterDTO.setEmail("email@mail.bg");
         userRegisterDTO.setPassword("1234");
         userRegisterDTO.setConfirmPassword("1234");
-        userRegisterDTO.setPhoneNumber("123456789");
+        userRegisterDTO.setPhoneNumber("0881234567");
         userRegisterDTO.setGender(GenderEnum.MALE);
 
         return userRegisterDTO;
