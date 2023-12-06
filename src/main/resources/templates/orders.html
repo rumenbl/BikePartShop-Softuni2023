@@ -10,40 +10,38 @@
     <nav th:replace="~{fragments/navigation}">Navigation</nav>
 </div>
 </body>
-
-<div th:each="order: ${allOrders}">
-    <div th:object="${order}">
-        <h1>Order Details:</h1>
-        <p>Order Number: <span th:text="${order.id}"></span> </p>
-        <p>Client: <span th:text="${order.client.toString()}"></span></p>
-        <p>Date: <span th:text="${order.date}"></span> </p>
-        <p>Total Value: <span th:text="${order.totalValue}"></span> </p>
-        <tr th:each="item : ${order.items}">
-            <div class="card mb-4 box-shadow" style="top:20px">
-                <img th:src="${item.part.pictureUrl}" class="card-img-top" style="max-width: 10vw;max-height: 10vw" alt="Part Picture"
-                     data-holder-rendered="true">
-                <div class="card-body custom-style">
-                    <div class="align-text-bottom">
-                        <div class="card-text border-bottom">
-                            <label for="title">Part:</label>
-                            <input disabled type="text" class="form-control" id="title" th:value="${item.part.title}">
-                        </div>
-                        <div class="card-text border-bottom">
-                            <label for="price">Price :</label>
-                            <input disabled type="number" class="form-control" id="price" th:value="${item.part.price}">
-                        </div>
-                        <div class="card-text border-bottom ">
-                            <label for="amount">Amount:</label>
-                            <input disabled type="number" class="form-control" min="1" id="amount" th:value="${item.amount}"
-                                   th:placeholder="${item.amount}" autocomplete="off">
+<div class="container-fluid">
+    <div class="row row-cols-auto gap-4 justify-content-center">
+        <div class="col-lg-4 d-flex align-items-stretch" th:each="order: ${allOrders}">
+            <div class="card col" style="top:20px">
+                <div class="card-body" th:object="${order}">
+                    <h3>Order Number: <span th:text="${order.id}"></span></h3>
+                    <p>Client Name:
+                        <span th:text="${order.client.firstName}"></span>
+                        <span th:text="${order.client.lastName}"></span>
+                    </p>
+                    <p>Client Username: <span th:text="${order.client.username}"></span></p>
+                    <p>Client Phone Number: <span th:text="${order.client.phoneNumber}"></span></p>
+                    <p>Client Email: <span th:text="${order.client.email}"></span></p>
+                    <p>Date: <span th:text="${order.date}"></span></p>
+                    <p>Total Value: <span th:text="${order.totalValue}"></span></p>
+                    <div th:each="item : ${order.items}">
+                        <div>
+                            <div class="align-text-bottom">
+                                <div class="border-bottom">
+                                    <span th:text="${item.amount}"></span>x <span th:text="${item.part.title}"></span>
+                                    <br>
+                                    <span th:text="${item.part.price}"></span> BGN Per Unit
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </tr>
+        </div>
     </div>
 </div>
-
+<div class="mt-5"></div>
+</body>
 <th:block th:include="~{fragments/footer}"/>
 </html>
