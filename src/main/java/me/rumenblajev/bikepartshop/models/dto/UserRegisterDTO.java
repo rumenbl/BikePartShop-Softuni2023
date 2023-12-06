@@ -40,7 +40,7 @@ public class UserRegisterDTO {
     @Size(min = 4,message = "Confirm Password must contain at least 4 characters!")
     private String confirmPassword;
 
-
+    @Pattern(regexp = "^\\+?[0-9]{10,12}$", message = "Invalid phone number!")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

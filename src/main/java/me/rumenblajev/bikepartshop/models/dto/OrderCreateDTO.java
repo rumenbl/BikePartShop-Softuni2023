@@ -1,6 +1,7 @@
 package me.rumenblajev.bikepartshop.models.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class OrderCreateDTO {
     private String clientName;
 
     @NotBlank(message = "Phone number cannot be blank")
-    @Size(min=8, max=20, message = "Phone number must be between 8 and 20 characters long")
+    @Pattern(regexp = "^\\+?[0-9]{10,12}$", message = "Invalid phone number!")
     private String clientPhoneNumber;
 
     @NotBlank(message = "Email cannot be blank")
