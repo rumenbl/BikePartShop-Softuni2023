@@ -25,14 +25,11 @@ public class BikePartShopUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        if(user.get().getRole().getName().equals(RolesEnum.USER)) {
-            return regularUserRoleMap(user.get());
-        } else if(user.get().getRole().getName().equals(RolesEnum.ADMIN)){
+        if(user.get().getRole().getName().equals(RolesEnum.ADMIN)) {
             return adminUserRoleMap(user.get());
         }
-        else {
-            return null;
-        }
+
+        return regularUserRoleMap(user.get());
     }
 
     public UserDetails regularUserRoleMap(final User user) {
