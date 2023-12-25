@@ -1,6 +1,6 @@
 # BikePartShop - Spring Advanced Course Project
 [![Overall Code Coverage](https://codecov.io/gh/rumenbl/BikePartShop-Softuni2023/graph/badge.svg?token=UH9BXNL3O7)](https://codecov.io/gh/rumenbl/BikePartShop-Softuni2023)
-
+[![CodeFactor](https://www.codefactor.io/repository/github/rumenbl/bikepartshop-softuni2023/badge)](https://www.codefactor.io/repository/github/rumenbl/bikepartshop-softuni2023)
 ## Overview
 This project, created as part of the SoftUni Spring Advanced course, serves as a comprehensive Bike Part Shop application.
 
